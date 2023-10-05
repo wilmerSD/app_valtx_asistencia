@@ -41,7 +41,7 @@ class SplashController extends GetxController {
       ),
     );
 
-    if (response.success) {
+    if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
     }

@@ -1,6 +1,18 @@
+import 'package:app_valtx_asistencia/app/providers/asisstances_week_user_provider.dart';
+import 'package:app_valtx_asistencia/app/providers/assistances_day_user_provider.dart';
+import 'package:app_valtx_asistencia/app/providers/assistances_month_user_provider.dart';
 import 'package:app_valtx_asistencia/app/providers/authentication_provider.dart';
+import 'package:app_valtx_asistencia/app/providers/register_marking_user_provider.dart';
+import 'package:app_valtx_asistencia/app/providers/types_assistances_provider.dart';
+import 'package:app_valtx_asistencia/app/providers/types_validations_provider.dart';
 import 'package:app_valtx_asistencia/app/providers/user_provider.dart';
+import 'package:app_valtx_asistencia/app/repositories/asisstances_day_user_repository.dart';
+import 'package:app_valtx_asistencia/app/repositories/asisstances_month_user_repository.dart';
+import 'package:app_valtx_asistencia/app/repositories/asisstances_week_user_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/authentication_repository.dart';
+import 'package:app_valtx_asistencia/app/repositories/register_marking_user_repository.dart';
+import 'package:app_valtx_asistencia/app/repositories/types_assistances_repository.dart';
+import 'package:app_valtx_asistencia/app/repositories/types_validations_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/user_repositori.dart';
 import 'package:app_valtx_asistencia/core/network/dio_client.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -30,6 +42,36 @@ class DependencyInjection {
       fenix: true,
     );
 
+    Get.lazyPut<AssistanceMonthUserProvider>(
+      () => AssistanceMonthUserProvider(),
+      fenix: true,
+    );
+
+    Get.lazyPut<AssistanceWeekUserProvider>(
+      () => AssistanceWeekUserProvider(),
+      fenix: true,
+    );
+
+    Get.lazyPut<AssistanceDayUserProvider>(
+      () => AssistanceDayUserProvider(),
+      fenix: true,
+    );
+
+    Get.lazyPut<RegisterMarkingUserProvider>(
+      () => RegisterMarkingUserProvider(),
+      fenix: true,
+    );
+
+    Get.lazyPut<TypesAssistancesProvider>(
+      () => TypesAssistancesProvider(),
+      fenix: true,
+    );
+
+    Get.lazyPut<TypesValidationsProvider>(
+      () => TypesValidationsProvider(),
+      fenix: true,
+    );
+
     //REPOSITORIES
     Get.lazyPut<AuthenticationRepository>(
       () => AuthenticationRepository(),
@@ -38,6 +80,36 @@ class DependencyInjection {
 
     Get.lazyPut<UserRepository>(
       () => UserRepository(),
+      fenix: true,
+    );
+
+    Get.lazyPut<AssistanceMonthUserRepository>(
+      () => AssistanceMonthUserRepository(),
+      fenix: true,
+    );
+
+    Get.lazyPut<AssistanceWeekUserRepository>(
+      () => AssistanceWeekUserRepository(),
+      fenix: true,
+    );
+
+    Get.lazyPut<AssistanceDayUserRepository>(
+      () => AssistanceDayUserRepository(),
+      fenix: true,
+    );
+    
+    Get.lazyPut<RegisterMarkingUserRepository>(
+      () => RegisterMarkingUserRepository(),
+      fenix: true,
+    );
+
+    Get.lazyPut<TypesAssistancesUserRepository>(
+      () => TypesAssistancesUserRepository(),
+      fenix: true,
+    );
+
+    Get.lazyPut<TypesValidationsRepository>(
+      () => TypesValidationsRepository(),
       fenix: true,
     );
   }

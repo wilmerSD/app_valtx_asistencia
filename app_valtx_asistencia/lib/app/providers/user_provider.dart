@@ -9,7 +9,7 @@ class UserProvider {
 		RequestUserInformationModel request,
 	) async {
 		final response = await _dioClient.get(
-			path: "/api/usuarios",
+			path: "/api/user/information",
 			bodyRaw: request.toMap(),
 		);
 		return ResponseUserInformationModel.fromJson(response);
