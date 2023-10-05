@@ -35,6 +35,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   logger: ^2.0.2+1
   iconsax: ^0.0.8
+  syncfusion_flutter_datepicker: ^22.2.8
   
 flutter_localizations:
     sdk: flutter

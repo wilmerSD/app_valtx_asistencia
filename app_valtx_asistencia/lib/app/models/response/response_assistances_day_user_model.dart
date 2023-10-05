@@ -2,7 +2,7 @@ class ResponseAssistancesDayUserModel {
     bool success;
     int statusCode;
     String statusMessage;
-    List<Datum> data;
+    List<DatumDay> data;
 
     ResponseAssistancesDayUserModel({
         required this.success,
@@ -12,21 +12,22 @@ class ResponseAssistancesDayUserModel {
     });
 
     factory ResponseAssistancesDayUserModel.fromJson(Map<String, dynamic> json) => ResponseAssistancesDayUserModel(
-        success: json["success"],
-        statusCode: json["status_code"],
-        statusMessage: json["status_message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        success: json["success"]??'',
+        statusCode: json["status_code"]??'',
+        statusMessage: json["status_message"]??'',
+        data: List<DatumDay>.from(json["data"].map((x) => DatumDay.fromJson(x))),
+        //data: json["data"] != null? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
     );
 }
 
-class Datum {
+class DatumDay {
     String time;
     int idTypesMarking;
     String typesMarking;
     int idValidation;
     String validation;
 
-    Datum({
+    DatumDay({
         required this.time,
         required this.idTypesMarking,
         required this.typesMarking,
@@ -34,7 +35,7 @@ class Datum {
         required this.validation,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory DatumDay.fromJson(Map<String, dynamic> json) => DatumDay(
         time: json["time"],
         idTypesMarking: json["idTypesMarking"],
         typesMarking: json["typesMarking"],

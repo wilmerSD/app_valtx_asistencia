@@ -2,7 +2,7 @@ class ResponseAssistancesMonthUserModel {
     bool success;
     int statusCode;
     String statusMessage;
-    List<Datum> data;
+    List<DatumMonth> data;
 
     ResponseAssistancesMonthUserModel({
         required this.success,
@@ -12,10 +12,10 @@ class ResponseAssistancesMonthUserModel {
     });
 
     factory ResponseAssistancesMonthUserModel.fromJson(Map<String, dynamic> json) => ResponseAssistancesMonthUserModel(
-        success: json["success"],
-        statusCode: json["status_code"],
-        statusMessage: json["status_message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        success: json["success"]??'',
+        statusCode: json["status_code"]??'',
+        statusMessage: json["status_message"]??'',
+        data: List<DatumMonth>.from(json["data"].map((x) => DatumMonth.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -26,20 +26,20 @@ class ResponseAssistancesMonthUserModel {
     };
 }
 
-class Datum {
+class DatumMonth {
     int idUser;
     int idValidation;
     String description;
     int quantity;
 
-    Datum({
+    DatumMonth({
         required this.idUser,
         required this.idValidation,
         required this.description,
         required this.quantity,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory DatumMonth.fromJson(Map<String, dynamic> json) => DatumMonth(
         idUser: json["idUser"],
         idValidation: json["idValidation"],
         description: json["description"],

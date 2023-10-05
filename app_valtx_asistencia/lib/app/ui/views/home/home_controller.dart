@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/local/storage_service.dart';
+import 'package:app_valtx_asistencia/core/helpers/keys.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_id_user_model.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_marking_user_model.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_user_information_model.dart';
@@ -9,7 +10,6 @@ import 'package:app_valtx_asistencia/app/repositories/register_marking_user_repo
 import 'package:app_valtx_asistencia/app/repositories/types_assistances_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/types_validations_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/user_repositori.dart';
-import 'package:app_valtx_asistencia/core/helpers/keys.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -56,17 +56,18 @@ class HomeController extends GetxController {
       return;
     }
   }*/
-  
+
   //tipos de marcación
   // void _initialize() async {
   //   final response = await _typesAssistances.getTypesAssistances(
   //   );
-
+  //
   //   if (!response.success) {
   //     print("error: ${response.statusMessage}");
   //     return;
   //   }
   // }
+
   //Tipos de validacion
   // void _initialize() async {
   //   final response = await _typesValidations.getTypesValidations(
@@ -90,7 +91,7 @@ class HomeController extends GetxController {
   //     print("error: ${response.statusMessage}");
   //     return;
   //   }
-  // }  
+  // }
 
   // //Asistencias del mes
   // void _initialize() async {
@@ -104,9 +105,9 @@ class HomeController extends GetxController {
   //     print("error: ${response.statusMessage}");
   //     return;
   //   }
-  // }  
+  // }
 
-  // //Asistencia de la semana 
+  //Asistencia de la semana
   // void _initialize() async {
   //   final response = await _assistancesWeekUserRepository.getAssistancesWeek(
   //     RequestIdUserModel(
@@ -118,9 +119,9 @@ class HomeController extends GetxController {
   //     print("error: ${response.statusMessage}");
   //     return;
   //   }
-  // }  
+  // }
 
-  //Registrar asistencia 
+  //Registrar asistencia
   void _initialize() async {
     final response = await _registerMarkingUser.postRegisterMarking(
       RequestMarkingUserModel(
@@ -135,7 +136,7 @@ class HomeController extends GetxController {
       print("error: ${response.statusMessage}");
       return;
     }
-  }  
+  }
 
   //
 }
