@@ -1,55 +1,63 @@
 class ResponseAssistancesWeekUserModel {
-    bool success;
-    int statusCode;
-    String statusMessage;
-    List<Datum> data;
+  bool success;
+  int statusCode;
+  String statusMessage;
+  List<DatumWeek>? data;
 
-    ResponseAssistancesWeekUserModel({
-        required this.success,
-        required this.statusCode,
-        required this.statusMessage,
-        required this.data,
-    });
+  ResponseAssistancesWeekUserModel({
+    required this.success,
+    required this.statusCode,
+    required this.statusMessage,
+    this.data,
+  });
 
-    factory ResponseAssistancesWeekUserModel.fromJson(Map<String, dynamic> json) => ResponseAssistancesWeekUserModel(
+  factory ResponseAssistancesWeekUserModel.fromJson(
+          Map<String, dynamic> json) =>
+      ResponseAssistancesWeekUserModel(
         success: json["success"],
         statusCode: json["status_code"],
         statusMessage: json["status_message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    );
+        /* data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))), */
+        data: (json["data"] != null &&
+                json["data"] is Map &&
+                json["data"].isEmpty)
+            ? []
+            : List<DatumWeek>.from(
+                json["data"].map((x) => DatumWeek.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
+  /* Map<String, dynamic> toJson() => {
         "success": success,
         "status_code": statusCode,
         "status_message": statusMessage,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
+    }; */
 }
 
-class Datum {
-    int idUser;
-    dynamic idAddress;
-    dynamic address;
-    DateTime date;
-    String day;
-    dynamic time;
-    int idTypesMarking;
-    int idValidation;
-    String validation;
+class DatumWeek {
+  int? idUser;
+  dynamic idAddress;
+  dynamic address;
+  DateTime? date;
+  String? day;
+  dynamic time;
+  int? idTypesMarking;
+  int? idValidation;
+  String? validation;
 
-    Datum({
-        required this.idUser,
-        required this.idAddress,
-        required this.address,
-        required this.date,
-        required this.day,
-        required this.time,
-        required this.idTypesMarking,
-        required this.idValidation,
-        required this.validation,
-    });
+  DatumWeek({
+    this.idUser,
+    this.idAddress,
+    this.address,
+    this.date,
+    this.day,
+    this.time,
+    this.idTypesMarking,
+    this.idValidation,
+    this.validation,
+  });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DatumWeek.fromJson(Map<String, dynamic> json) => DatumWeek(
         idUser: json["idUser"],
         idAddress: json["idAddress"],
         address: json["address"],
@@ -59,9 +67,9 @@ class Datum {
         idTypesMarking: json["idTypesMarking"],
         idValidation: json["idValidation"],
         validation: json["validation"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  /* Map<String, dynamic> toJson() => {
         "idUser": idUser,
         "idAddress": idAddress,
         "address": address,
@@ -71,5 +79,5 @@ class Datum {
         "idTypesMarking": idTypesMarking,
         "idValidation": idValidation,
         "validation": validation,
-    };
+    }; */
 }

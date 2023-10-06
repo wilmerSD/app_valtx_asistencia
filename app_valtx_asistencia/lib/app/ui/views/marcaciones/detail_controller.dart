@@ -11,7 +11,6 @@ import 'package:app_valtx_asistencia/app/repositories/types_validations_reposito
 
 import 'package:get/get.dart';
 
-
 class DetailController extends GetxController {
   @override
   void onInit() {
@@ -30,25 +29,27 @@ class DetailController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   //Instances
   final _typesValidationsRepository = Get.find<TypesValidationsRepository>();
-  final _assistancesMonthUserRepository = Get.find<AssistanceMonthUserRepository>();
+  final _assistancesMonthUserRepository =
+      Get.find<AssistanceMonthUserRepository>();
   final _assistancesDayUserRepository = Get.find<AssistanceDayUserRepository>();
 
   //variables
-   var responseTypesValidations = <Datum>[].obs;
-   var responseDataDia = <DatumDay>[].obs;
-   var responseDataMes = <DatumMonth>[].obs;
-   var statusDataMes = ''.obs;
-   var userId = 1;
-   var authToken= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYW5kb21EYXRhIjowLjcxOTc3NzQzODkzNjg4NzIsImV4cCI6MTY5NjM1MTU2NCwiaWF0IjoxNjk2MzQ3OTY0fQ.ep1yL-TmMsMo2ydZWf8MbreJvP8-gDkEp1lDVBQGHq8';
-   
-  
+  var responseTypesValidations = <Datum>[].obs;
+  var responseDataDia = <DatumDay>[].obs;
+  var responseDataMes = <DatumMonth>[].obs;
+  var statusMessageDay = ''.obs;
+  var statusMessageMonth = ''.obs;
+  var userId = 6;
+  var authToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYW5kb21EYXRhIjowLjcxOTc3NzQzODkzNjg4NzIsImV4cCI6MTY5NjM1MTU2NCwiaWF0IjoxNjk2MzQ3OTY0fQ.ep1yL-TmMsMo2ydZWf8MbreJvP8-gDkEp1lDVBQGHq8';
+
   //Funciones
   //Tipos de validacion
   void _typesValidationsuser() async {
-    final response = await _typesValidationsRepository.getTypesValidations(
-    );
+    final response = await _typesValidationsRepository.getTypesValidations();
     responseTypesValidations.assignAll((response.data));
     if (!response.success) {
       print("error: ${response.statusMessage}");
@@ -59,26 +60,23 @@ class DetailController extends GetxController {
   //Asistencias del mes de usuario
   void _assistancesMonthUser() async {
     final response = await _assistancesMonthUserRepository.getAssistancesMonth(
-      RequestIdUserModel(
-        idUser: 1
-      ),
+      RequestIdUserModel(idUser: userId),
     );
-     responseDataMes.assignAll(response.data);
-    statusDataMes.value = response.statusMessage;
+    responseDataMes.assignAll(response.data ?? []);
+    statusMessageMonth.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
     }
   }
-  
+
   //Asistencias del dia de usuario
   void _assistancesDayUser() async {
     final response = await _assistancesDayUserRepository.getAssistancesDay(
-      RequestIdUserModel(
-        idUser: 1
-      ),
+      RequestIdUserModel(idUser: userId),
     );
-  responseDataDia.assignAll(response.data);
+    responseDataDia.assignAll(response.data ?? []);
+    statusMessageDay.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
@@ -91,6 +89,4 @@ class DetailController extends GetxController {
       userId = responseAuthModel.user?.id ?? 0;
       print(userId);
     } */
-  
-  
 }
