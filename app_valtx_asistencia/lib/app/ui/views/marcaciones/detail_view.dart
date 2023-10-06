@@ -1,8 +1,8 @@
-import 'package:app_valtx_asistencia/app/ui/components/assistance_day_user.dart';
-import 'package:app_valtx_asistencia/app/ui/components/bottomDetail.dart';
-import 'package:app_valtx_asistencia/app/ui/components/calendar.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/details/assistance_day_user.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/details/bottomDetail.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/details/calendar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/date_today.dart';
-import 'package:app_valtx_asistencia/app/ui/components/types_validations.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/details/types_validations.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,4 @@
-import 'package:app_valtx_asistencia/app/ui/components/funtion_date_espanish.dart';
+import 'package:app_valtx_asistencia/app/ui/components/funtions/funtion_date_espanish.dart';
 import 'package:flutter/material.dart';
 
 class DateToday extends StatelessWidget {

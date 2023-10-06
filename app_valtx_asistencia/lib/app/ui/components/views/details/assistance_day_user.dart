@@ -1,5 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/components/dashed_line.dart';
-import 'package:app_valtx_asistencia/app/ui/components/funtion_color_circle.dart';
+import 'package:app_valtx_asistencia/app/ui/components/funtions/funtion_color_circle.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
