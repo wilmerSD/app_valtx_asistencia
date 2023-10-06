@@ -16,8 +16,8 @@ class AssistanceDayUser extends StatelessWidget {
               child: Obx(
                 () {
                   if (controller.responseDataDia.isEmpty) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Center(
+                      child: Text('${controller.statusMessageDay}'),
                     );
                   } else {
                     return Row(
@@ -27,7 +27,7 @@ class AssistanceDayUser extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: controller.responseDataDia.map((itemdia) {
                             Color circleColordia =
-                                getCircleColor(itemdia.idValidation);
+                                getCircleColor(itemdia.idValidation!);
                             return Row(
                               children: [
                                 Container(
@@ -42,7 +42,7 @@ class AssistanceDayUser extends StatelessWidget {
                                   width: 10.0,
                                 ),
                                 Text(
-                                  itemdia.time,
+                                  itemdia.time!,
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.bold,
@@ -63,7 +63,7 @@ class AssistanceDayUser extends StatelessWidget {
                                   width: 10.0,
                                 ),
                                 Text(
-                                  itemdia.typesMarking,
+                                  itemdia.typesMarking!,
                                   style: const TextStyle(
                                     color: Color.fromRGBO(38, 52, 113, 1),
                                     fontWeight: FontWeight.bold,

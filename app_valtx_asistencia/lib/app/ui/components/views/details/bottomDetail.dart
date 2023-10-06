@@ -32,8 +32,8 @@ class BottomDetail extends StatelessWidget {
                   child: Obx(
                     () {
                       if (controller.responseDataMes.isEmpty) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return Center(
+                          child: Text('${controller.statusMessageMonth}'),
                         );
                       } else {
                         return Row(
@@ -51,7 +51,7 @@ class BottomDetail extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  itemMonth.description,
+                                  itemMonth.description!,
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 15,
