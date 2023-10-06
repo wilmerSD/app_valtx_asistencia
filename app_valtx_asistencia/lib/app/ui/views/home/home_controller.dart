@@ -137,6 +137,14 @@ class HomeController extends GetxController {
       return;
     }
   }
-
-  //
+  
+  //Optener el id de usuario
+/*   void _optenerId() async {
+    String value = await LocalStorageService.get(Keys.KeyUserAuth);
+    final responseAuthModel = ResponseAuthModel.fromJson(json.decode(value));
+    print("Usuario con id ${responseAuthModel.user?.id}");
+    userId = responseAuthModel.user?.id ?? 0;
+    print(userId);
+  }
+   */
 }

@@ -39,6 +39,7 @@ class DetailController extends GetxController {
    var responseTypesValidations = <Datum>[].obs;
    var responseDataDia = <DatumDay>[].obs;
    var responseDataMes = <DatumMonth>[].obs;
+   var statusDataMes = ''.obs;
    var userId = 1;
    var authToken= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYW5kb21EYXRhIjowLjcxOTc3NzQzODkzNjg4NzIsImV4cCI6MTY5NjM1MTU2NCwiaWF0IjoxNjk2MzQ3OTY0fQ.ep1yL-TmMsMo2ydZWf8MbreJvP8-gDkEp1lDVBQGHq8';
    
@@ -63,7 +64,7 @@ class DetailController extends GetxController {
       ),
     );
      responseDataMes.assignAll(response.data);
-
+    statusDataMes.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
@@ -83,15 +84,13 @@ class DetailController extends GetxController {
       return;
     }
   }
-  
-  //Optener el id de usuario
-  // void _optenerId() async {
-  //   String value = await LocalStorageService.get(Keys.KeyUserAuth);
-  //   final responseAuthModel = ResponseAuthModel.fromJson(json.decode(value));
-  //   print("Usuario con id ${responseAuthModel.user?.id}");
-  //   userId = responseAuthModel.user?.id ?? 0;
-  //   print(userId);
-  // }
+  /* void _optenerId() async {
+      String value = await LocalStorageService.get(Keys.KeyUserAuth);
+      final responseAuthModel = ResponseAuthModel.fromJson(json.decode(value));
+      print("Usuario con id ${responseAuthModel.user?.id}");
+      userId = responseAuthModel.user?.id ?? 0;
+      print(userId);
+    } */
   
   
 }
