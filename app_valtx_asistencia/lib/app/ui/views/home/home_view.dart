@@ -1,9 +1,14 @@
-import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
+ import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/templates/custom_scaffold_base.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
+const MAPBOX_ACCESS_TOKEN =
+    'pk.eyJ1IjoicGl0bWFjIiwiYSI6ImNsY3BpeWxuczJhOTEzbnBlaW5vcnNwNzMifQ.ncTzM4bW-jpq-hUFutnR1g';
+    
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -449,4 +454,3 @@ class HomeView extends StatelessWidget {
     showDialog(context: context, builder: (context) => AltMarcar());
   }
 }
-

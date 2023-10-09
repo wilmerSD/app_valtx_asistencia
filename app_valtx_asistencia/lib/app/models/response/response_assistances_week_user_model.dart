@@ -25,13 +25,6 @@ class ResponseAssistancesWeekUserModel {
             : List<DatumWeek>.from(
                 json["data"].map((x) => DatumWeek.fromJson(x))),
       );
-
-  /* Map<String, dynamic> toJson() => {
-        "success": success,
-        "status_code": statusCode,
-        "status_message": statusMessage,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    }; */
 }
 
 class DatumWeek {
@@ -68,16 +61,4 @@ class DatumWeek {
         idValidation: json["idValidation"],
         validation: json["validation"],
       );
-
-  /* Map<String, dynamic> toJson() => {
-        "idUser": idUser,
-        "idAddress": idAddress,
-        "address": address,
-        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-        "day": day,
-        "time": time,
-        "idTypesMarking": idTypesMarking,
-        "idValidation": idValidation,
-        "validation": validation,
-    }; */
 }

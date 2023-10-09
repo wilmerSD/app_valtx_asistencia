@@ -52,7 +52,7 @@ class SplashController extends GetxController {
     await StorageService.set(key: Keys.kPassword, value: password);
     
     //Ir a nueva ruta y eliminar de memoria controllers existentes
-    Get.offNamed(AppRoutesName.DETAIL);
+    Get.offNamed(AppRoutesName.HOME);
 
   }
 }

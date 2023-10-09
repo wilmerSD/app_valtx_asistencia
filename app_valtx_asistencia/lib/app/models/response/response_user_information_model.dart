@@ -21,28 +21,28 @@ class ResponseUserInformationModel {
 }
 
 class DataUser {
-  int idUser;
-  String names;
-  String lastNames;
-  int status;
-  String user;
-  int idRole;
-  int idPrimaryAddress;
-  String primaryAddress;
-  int idSecondaryAddress;
-  String secondaryAddress;
+  int? idUser;
+  String? names;
+  String? lastNames;
+  int? status;
+  String? user;
+  int? idRole;
+  int? idPrimaryAddress;
+  String? primaryAddress;
+  int? idSecondaryAddress;
+  String? secondaryAddress;
 
   DataUser({
-    required this.idUser,
-    required this.names,
-    required this.lastNames,
-    required this.status,
-    required this.user,
-    required this.idRole,
-    required this.idPrimaryAddress,
-    required this.primaryAddress,
-    required this.idSecondaryAddress,
-    required this.secondaryAddress,
+     this.idUser,
+     this.names,
+     this.lastNames,
+     this.status,
+     this.user,
+     this.idRole,
+     this.idPrimaryAddress,
+     this.primaryAddress,
+     this.idSecondaryAddress,
+     this.secondaryAddress,
   });
 
   factory DataUser.fromJson(Map<String, dynamic> json) => DataUser(

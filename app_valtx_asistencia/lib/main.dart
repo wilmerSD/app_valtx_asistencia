@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutesName.SPLASH,
+      initialRoute: AppRoutesName.HOME,
       getPages: AppRoutes.routes,
     );
   }

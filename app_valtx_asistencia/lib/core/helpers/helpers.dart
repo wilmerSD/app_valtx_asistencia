@@ -6,6 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Helpers {
   static Future<dynamic> loadJsonAssets(String fileName) async {
@@ -301,6 +302,22 @@ class Helpers {
       await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
     }
   } */
+  String getWeekCurrent() {
+    final now = DateTime.now();
+    final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+    final endOfWeek = now.add(Duration(days: 7 - now.weekday));
+    final format = DateFormat('dd - MM MMM', 'es');
+
+    final startFormatted = format.format(startOfWeek);
+    final endFormatted = format.format(endOfWeek);
+
+    return '$startFormatted - $endFormatted.';
+  }
+  String getDateLarge() {
+    final now = DateTime.now();
+    final format = DateFormat('EEEE dd "de" MMM.', 'es');
+    return format.format(now);
+  }
 
   static void showSnackBar(
     BuildContext context, {
