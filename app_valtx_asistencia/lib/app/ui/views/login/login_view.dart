@@ -117,31 +117,61 @@ class LoginView extends StatelessWidget {
                   controller.messageError.value = "";
                 }, */
               ), */
-              Obx(
-                () => Visibility(
-                  visible: isVisible.value,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: // Verifica si se debe mostrar el AlertDialog
-                        AlertDialog(
-                            backgroundColor: Color.fromARGB(240, 176, 176, 176),
-                            title: const Text("Tipo de error"),
-                            content: Text("${controller.messageError}",
-                                textAlign: TextAlign
-                                    .center), // Usa el mensaje de error del controlador
-                            actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              controller.messageError.value = "";
-                              /* Navigator.of(context).pushReplacement; */
-                              /* Get.back(); */
-                              isVisible.value = false;
-                            },
-                            child: const Text("OK"),
+              Container(
+                child: Obx(() {
+                  return controller.isLoading.value
+                      ? const CircularProgressIndicator()
+                      : Visibility(
+                          visible: isVisible.value,
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: // Verifica si se debe mostrar el AlertDialog
+                                AlertDialog(
+                                    backgroundColor:
+                                        Color.fromARGB(240, 176, 176, 176),
+                                    title: const Text("Tipo de error"),
+                                    content: Text("${controller.messageError}",
+                                        textAlign: TextAlign
+                                            .center), // Usa el mensaje de error del controlador
+                                    actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      controller.messageError.value = "";
+                                      /* Navigator.of(context).pushReplacement; */
+                                      /* Get.back(); */
+                                      isVisible.value = false;
+                                    },
+                                    child: const Text("OK"),
+                                  ),
+                                ]),
                           ),
-                        ]),
-                  ),
-                ),
+                        );
+                }
+                    /* () => Visibility(
+                    visible: isVisible.value,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: // Verifica si se debe mostrar el AlertDialog
+                          AlertDialog(
+                              backgroundColor: Color.fromARGB(240, 176, 176, 176),
+                              title: const Text("Tipo de error"),
+                              content: Text("${controller.messageError}",
+                                  textAlign: TextAlign
+                                      .center), // Usa el mensaje de error del controlador
+                              actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                controller.messageError.value = "";
+                                /* Navigator.of(context).pushReplacement; */
+                                /* Get.back(); */
+                                isVisible.value = false;
+                              },
+                              child: const Text("OK"),
+                            ),
+                          ]),
+                    ),
+                  ), */
+                    ),
               )
             /* Align(
                 alignment: Alignment.bottomCenter,

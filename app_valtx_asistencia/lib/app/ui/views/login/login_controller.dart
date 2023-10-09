@@ -33,7 +33,7 @@ class LoginController extends GetxController {
   String userName = '';
   String password = '';
   RxString messageError = RxString("");
-
+  RxBool isLoading = false.obs;
   //Functions
   void doAuth() async {
     try {
@@ -43,6 +43,7 @@ class LoginController extends GetxController {
           password: password,
         ),
       );
+      isLoading.value = false;
       print("mensaje: ${response.statusMessage}");
       if (!response.success) {
         messageError.value = response.statusMessage;
@@ -58,7 +59,7 @@ class LoginController extends GetxController {
       await StorageService.set(key: Keys.kPassword, value: password);
       print("token: ${response.data!.token}");
       //Ir a nueva ruta y eliminar de memoria controllers existentes
-      /* Get.offNamed(AppRoutesName.HOME); */
+      Get.offNamed(AppRoutesName.HOME);
     } catch (error) {
       if (error is DioException) {
         print('ERROR: ${error.response?.data['message']}');
