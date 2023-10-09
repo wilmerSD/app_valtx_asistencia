@@ -302,22 +302,28 @@ class Helpers {
       await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
     }
   } */
-  String getWeekCurrent() {
-    final now = DateTime.now();
-    final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    final endOfWeek = now.add(Duration(days: 7 - now.weekday));
-    final format = DateFormat('dd - MM MMM', 'es');
+String getWeekCurrent() {
+  final now = DateTime.now();
+  // Obtén el día de la semana actual (0 = domingo, 1 = lunes, ..., 6 = sábado)
+  final currentDayOfWeek = now.weekday;
+  // Calcula la fecha del lunes de la semana actual
+  final startOfWeek = now.subtract(Duration(days: currentDayOfWeek - 1));
+  // Calcula la fecha del viernes de la semana actual
+  final endOfWeek = startOfWeek.add(Duration(days: 4));
+  final format = DateFormat('dd', 'es');
+  final monthFormat = DateFormat('MMM', 'es');
+  final startDayFormatted = format.format(startOfWeek);
+  final endDayFormatted = format.format(endOfWeek);
+  final monthFormatted = monthFormat.format(startOfWeek);
 
-    final startFormatted = format.format(startOfWeek);
-    final endFormatted = format.format(endOfWeek);
+  return '$startDayFormatted - $endDayFormatted $monthFormatted.';
+}
 
-    return '$startFormatted - $endFormatted.';
-  }
-  String getDateLarge() {
-    final now = DateTime.now();
-    final format = DateFormat('EEEE dd "de" MMM.', 'es');
-    return format.format(now);
-  }
+ String getDateLarge() {
+  final now = DateTime.now();
+  final format = DateFormat('EEEE dd \'de\' MMM.', 'es');
+  return format.format(now);
+}
 
   static void showSnackBar(
     BuildContext context, {

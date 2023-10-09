@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   DependencyInjection.initialize();
   AppConfig.initialize();
   DioConfig.initialize();
   DependencyInjection.initialize();
+  initializeDateFormatting('es', null);
   runApp(const MyApp());
 }
 
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     initializeDateFormatting('es', null);
     return GetMaterialApp(
       title: 'Marcaciones',
       theme: ThemeData(
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutesName.LOGIN,
+      initialRoute: AppRoutesName.SPLASH,
       getPages: AppRoutes.routes,
     );
   }

@@ -25,11 +25,12 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     _getinformationUser();
-    _getTypesMarking();
+    //_getTypesMarking();
     _getAssistancesMonthUser();
     _getAssistancesWeekhUser(); 
     _checkLocationPermission();
     super.onInit();
+    update();
   }
 
   @override
@@ -55,26 +56,18 @@ class HomeController extends GetxController {
   final _typesAssistances = Get.find<TypesAssistancesUserRepository>();
 
   //Variables
-  var responseUserInformation = DataUser();
-  var responseTypesMarking =  <DatumAssistances>[];
+  var responseUserInformation = DataUser().obs;
+  var responseTypesMarking =  <DatumAssistances>[].obs;
   var statusMessageTypesMarking = ''.obs;
   var statusMessageUserInformation = ''.obs;
   var statusMessageWeek = ''.obs;
   var statusMessageMonth = ''.obs;
   var responseUserAssistanceWeek = <DatumWeek>[].obs;
   var responseUserAssistanceMonth = <DatumMonth>[].obs;
-  var myPosition2 = const LatLng(-12.086733751659768, -76.99129060428967);
-  Rx<LatLng> myPosition =
-      Rx<LatLng>(LatLng(-6.7638751891380995, -79.86384501573184));
+  final LatLng initialPosition = LatLng(0, 0); // Ubicación inicial en latitud y longitud.
+  final Rx<LatLng> currentLocation = Rx<LatLng>(LatLng(0, 0));
+  RxBool isLoading = false.obs;
   int userId = 0;
-  String messageMarca = '';
-  RxInt cantidadF = RxInt(0);
-  RxInt cantidadT = RxInt(0);
-  RxInt cantidadJ = RxInt(0);
-  RxDouble latitude = 0.0.obs;
-  RxDouble longitude = 0.0.obs;
-  double lat = 0.0;
-  double long = 0.0;
   String username = '';
   String password = '';
   String token = '';
@@ -82,13 +75,15 @@ class HomeController extends GetxController {
   //Functions
   //traer información del usuario
   void _getinformationUser() async {
+    isLoading.value = true;
     final response = await _userRepository.getUserInformation(
       RequestUserInformationModel(
         username: await StorageService.get(Keys.kUserName),
         password: await StorageService.get(Keys.kPassword),
       ),
     );
-    responseUserInformation = response.data;
+    isLoading.value = false;
+    responseUserInformation.value = response.data;
     statusMessageUserInformation.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
@@ -100,8 +95,10 @@ class HomeController extends GetxController {
 
   //tipos de marcación
   void _getTypesMarking() async {
+    isLoading.value = true;
     final response = await _typesAssistances.getTypesAssistances(
     );
+    isLoading.value = false;
     responseTypesMarking.assignAll(response.data);
     statusMessageTypesMarking.value = response.statusMessage;
     if (!response.success) {
@@ -112,11 +109,13 @@ class HomeController extends GetxController {
 
   // //Asistencias del mes
   void _getAssistancesMonthUser() async {
+    isLoading.value = true;
     final response = await _assistancesMonthkUserRepository.getAssistancesMonth(
       RequestIdUserModel(
         idUser: 1
       ),
     );
+    isLoading.value = false;
     responseUserAssistanceMonth.assignAll(response.data??[]);
     statusMessageMonth.value = response.statusMessage;
     if (!response.success) {
@@ -127,11 +126,13 @@ class HomeController extends GetxController {
 
   //Asistencia de la semana
   void _getAssistancesWeekhUser() async {
+    isLoading.value = true;
     final response = await _assistancesWeekUserRepository.getAssistancesWeek(
       RequestIdUserModel(
         idUser: 1
       ),
     );
+    isLoading.value = false;
     responseUserAssistanceWeek.assignAll(response.data??[]);
     statusMessageWeek.value = response.statusMessage;
     if (!response.success) {
@@ -141,7 +142,8 @@ class HomeController extends GetxController {
   }
 
   //Registrar asistencia
-  void _assistMarker() async {
+  void assistMarker() async {
+    isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _registerMarkingUser.postRegisterMarking(
       RequestMarkingUserModel(
@@ -150,31 +152,14 @@ class HomeController extends GetxController {
           latitude: -6.764219076343798,
           longitude: -79.86364880389573),
     );
+    isLoading.value = false;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
     }
   }
 
-/*   void obtenerUbicacion() async {
-    try {
-      LocationData userLocation = await location.getLocation();
-      latitude.value = userLocation.latitude ?? 0.0;
-      longitude.value = userLocation.longitude ?? 0.0;
-      lat = latitude.value;
-      long = longitude.value;
-      print('esta es la latitud------${latitude}');
-      myPosition.value = LatLng(lat, long);
-      cantidadF += 1;
-      update();
-      print('mi posicion es: ${myPosition.value}');
-    } catch (e) {
-      // Maneja cualquier error que pueda ocurrir al obtener la ubicación.
-      print('Error al obtener la ubicación: $e');
-    }
-  } */
-   final LatLng initialPosition = LatLng(0, 0); // Ubicación inicial en latitud y longitud.
-  final Rx<LatLng> currentLocation = Rx<LatLng>(LatLng(0, 0));
+   
 
 Future<void> _checkLocationPermission() async {
     final hasPermission = await location.hasPermission();
@@ -186,16 +171,16 @@ Future<void> _checkLocationPermission() async {
         return;
       }
     }
-
     _getCurrentLocation();
   }
+
 Future<void> _getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
-   
     currentLocation.value = LatLng(position.latitude, position.longitude);
   }
+
   void navigateToScreen() {
     Get.toNamed(AppRoutesName.DETAIL);
   }

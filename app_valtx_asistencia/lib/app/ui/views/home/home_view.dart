@@ -1,4 +1,4 @@
- import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
+/*  import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/templates/custom_scaffold_base.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -453,4 +453,4 @@ class HomeView extends StatelessWidget {
   void _showAlertDialog(BuildContext context) {
     showDialog(context: context, builder: (context) => AltMarcar());
   }
-}
+} */

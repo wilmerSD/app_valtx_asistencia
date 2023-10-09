@@ -13,69 +13,88 @@ class ContenidoWeek extends StatelessWidget {
     return GetBuilder<HomeController>(
         builder: (controller) => Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Text(
-                      'Mis marcaciones recientes',
-                      style: TextStyle(
-                          color: Color.fromRGBO(38, 52, 113, 1), fontSize: 12),
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  height: MediaQuery.of(context).size.height * 0.03,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      topLeft: Radius.circular(10.0),
                     ),
-                    Text(
-                      helpers.getWeekCurrent(),
-                      style: const TextStyle(
-                          color: Color.fromRGBO(38, 52, 113, 1), fontSize: 12),
-                    ),
-                  ],
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text(
+                        'Mis marcaciones recientes',
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 52, 113, 1),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        helpers.getWeekCurrent(),
+                        style: const TextStyle(
+                            color: Color.fromRGBO(38, 52, 113, 1),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                   height: MediaQuery.of(context).size.height * 0.07,
-                  color: Colors.white,
-                  child: Obx(
-                    () {
-                      if (controller.responseUserAssistanceWeek.isEmpty) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              controller.responseUserAssistanceWeek.length,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(width: 50.0);
-                          },
-                          itemBuilder: (context, index) {
-                            final item =
-                                controller.responseUserAssistanceWeek[index];
-                            Color circleColor =
-                                getCircleColor(item.idValidation ?? 0);
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: circleColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  item.day ?? '',
-                                  style: const TextStyle(
-                                      fontSize: 14.0, color: Colors.grey),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                    ),
+                    color: Colors.white,
                   ),
-                ),
+                  child: Obx(() {
+                    return controller.isLoading.value
+                        ? const CircularProgressIndicator()
+                        : controller.responseUserAssistanceWeek.isEmpty
+                            ? Center(
+                                child: Text('${controller.statusMessageWeek}'),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller
+                                    .responseUserAssistanceWeek.length,
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(width: 50.0);
+                                },
+                                itemBuilder: (context, index) {
+                                  final item = controller
+                                      .responseUserAssistanceWeek[index];
+                                  Color circleColor =
+                                      getCircleColor(item.idValidation ?? 0);
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: circleColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        item.day ?? '',
+                                        style: const TextStyle(
+                                            fontSize: 14.0, color: Colors.grey),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                  }),
+                )
               ],
             ));
   }
