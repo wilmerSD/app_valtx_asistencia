@@ -17,6 +17,7 @@ class DetailController extends GetxController {
     _typesValidationsuser();
     _assistancesDayUser();
     _assistancesMonthUser();
+    
     super.onInit();
   }
 
@@ -42,15 +43,16 @@ class DetailController extends GetxController {
   var responseDataMes = <DatumMonth>[].obs;
   var statusMessageDay = ''.obs;
   var statusMessageMonth = ''.obs;
-  var userId = 6;
-  var authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYW5kb21EYXRhIjowLjcxOTc3NzQzODkzNjg4NzIsImV4cCI6MTY5NjM1MTU2NCwiaWF0IjoxNjk2MzQ3OTY0fQ.ep1yL-TmMsMo2ydZWf8MbreJvP8-gDkEp1lDVBQGHq8';
+  RxBool isLoading = false.obs;
+  
 
   //Funciones
   //Tipos de validacion
   void _typesValidationsuser() async {
+    isLoading.value = true;
     final response = await _typesValidationsRepository.getTypesValidations();
     responseTypesValidations.assignAll((response.data));
+    isLoading.value = false;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
@@ -59,9 +61,12 @@ class DetailController extends GetxController {
 
   //Asistencias del mes de usuario
   void _assistancesMonthUser() async {
+    isLoading.value = true;
+    String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _assistancesMonthUserRepository.getAssistancesMonth(
-      RequestIdUserModel(idUser: userId),
+      RequestIdUserModel(idUser: int.parse(Iduser),),
     );
+    isLoading.value = false;
     responseDataMes.assignAll(response.data ?? []);
     statusMessageMonth.value = response.statusMessage;
     if (!response.success) {
@@ -70,11 +75,15 @@ class DetailController extends GetxController {
     }
   }
 
+
   //Asistencias del dia de usuario
   void _assistancesDayUser() async {
+    isLoading.value = true;
+    String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _assistancesDayUserRepository.getAssistancesDay(
-      RequestIdUserModel(idUser: userId),
+      RequestIdUserModel(idUser: int.parse(Iduser),),
     );
+    isLoading.value = false;
     responseDataDia.assignAll(response.data ?? []);
     statusMessageDay.value = response.statusMessage;
     if (!response.success) {
@@ -82,11 +91,4 @@ class DetailController extends GetxController {
       return;
     }
   }
-  /* void _optenerId() async {
-      String value = await LocalStorageService.get(Keys.KeyUserAuth);
-      final responseAuthModel = ResponseAuthModel.fromJson(json.decode(value));
-      print("Usuario con id ${responseAuthModel.user?.id}");
-      userId = responseAuthModel.user?.id ?? 0;
-      print(userId);
-    } */
 }

@@ -1,10 +1,12 @@
 import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/buttons/btn_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/funtions/funtion_color_circle.dart';
+import 'package:app_valtx_asistencia/app/ui/components/types_assistances.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/bottomDetail.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/Contenido_week.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/appBar_home.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/bottom_home.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/home/user_information.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:flutter/material.dart';
@@ -46,44 +48,22 @@ class HomeView2 extends StatelessWidget {
                       height: 10.0,
                     ),
                     //Información del usuario
-                       Container(
-                          height: 80.0,
-                          margin: EdgeInsets.only(
-                              left: 10, right: 10.0, bottom: 10.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white,
-                          ),
-                          child: Obx((){
-                              return controller.isLoading.value 
-                              ? const CircularProgressIndicator()
-                              : controller.responseUserAssistanceWeek.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                          '${controller.statusMessageUserInformation}'),
-                                    )
-                                  : ListTile(
-                                      leading: const CircleAvatar(
-                                          backgroundColor: Colors.red),
-                                      title: Text(
-                                          "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}"),
-                                      subtitle: Row(
-                                        children: [
-                                          const Icon(
-                                            Iconsax.location,
-                                            color:
-                                                Color.fromRGBO(38, 52, 113, 1),
-                                          ),
-                                          Text(
-                                              "${controller.responseUserInformation.value.primaryAddress}"),
-                                        ],
-                                      ),
-                                    );
-                          }
-                          )
-                          
-                  
-                )],
+                    const UserInformation(),
+
+                    //Para marcar asistencia
+                    BtnMarcar(
+                      OnTap: () {
+                        _showTypesMarkingDialog(context, controller);
+                        //_showAlertDialog(context);
+                      },
+                      title: 'Marcar',
+                      color: const Color.fromARGB(255, 244, 129, 22),
+                      sombra: const Color.fromARGB(255, 244, 129, 22),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
                 )
               ]),
             ));
@@ -92,13 +72,64 @@ class HomeView2 extends StatelessWidget {
   void _showAlertDialog(BuildContext context) {
     showDialog(context: context, builder: (context) => AltMarcar());
   }
+
+  // Definición de la función para mostrar el diálogo de tipos de marcación
+  void _showTypesMarkingDialog(
+      BuildContext context, HomeController controller) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return controller.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : controller.responseUserAssistanceWeek.isEmpty
+                ? Center(
+                    child: Text('${controller.statusMessageTypesMarking}'),
+                  )
+                : AlertDialog(
+                    title: Text('Seleccionar tipo de marcación'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: controller.responseTypesMarking.map((type) {
+                        return ListTile(
+                          title: Text(type
+                              .description), // Supongo que los tipos tienen un atributo 'name'
+                          onTap: () {
+                            // Aquí puedes realizar la acción correspondiente al tipo de marcación seleccionado
+                            Navigator.pop(context,
+                                type.idTypesMarking); // Cierra el diálogo y devuelve el valor del tipo (por ejemplo, type.id)
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  );
+      },
+    ).then((selectedValue) {
+      // El valor seleccionado se encuentra en selectedValue
+      
+      if (selectedValue != null) {
+        controller.assistMarker(selectedValue);
+        controller.isLoading.value 
+        ? const Center(child: CircularProgressIndicator())
+            : controller.responseUserAssistanceWeek.isEmpty
+                ? Center(
+                    child: AlertDialog(
+    title: Text('Mensaje de Alerta'),
+    content: Text('${controller.statusMessageUserAssistance}'),
+    actions: <Widget>[
+      TextButton(
+        onPressed: () {
+          // Cierra la alerta
+          Navigator.of(context).pop();
+        },
+        child: Text('Aceptar'),
+      ),
+    ],
+  ),
+                  )
+                : _showAlertDialog;
+        print('Tipo de marcación seleccionado: $selectedValue');
+        // Aquí puedes llamar a otras funciones o realizar acciones adicionales según el tipo seleccionado
+      }
+    });
+  }
 }
-/* BtnMarcar(
-                      OnTap: () {
-                        controller.assistMarker();
-                        _showAlertDialog(context);
-                      },
-                      title: 'Marcar',
-                      color: const Color.fromARGB(255, 244, 129, 22),
-                      sombra: const Color.fromARGB(255, 244, 129, 22),
-                    )  */

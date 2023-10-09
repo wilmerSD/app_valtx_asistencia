@@ -45,6 +45,7 @@ class ContenidoWeek extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
                   height: MediaQuery.of(context).size.height * 0.07,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -55,7 +56,7 @@ class ContenidoWeek extends StatelessWidget {
                   ),
                   child: Obx(() {
                     return controller.isLoading.value
-                        ? const CircularProgressIndicator()
+                        ?const Center( child:  CircularProgressIndicator())
                         : controller.responseUserAssistanceWeek.isEmpty
                             ? Center(
                                 child: Text('${controller.statusMessageWeek}'),

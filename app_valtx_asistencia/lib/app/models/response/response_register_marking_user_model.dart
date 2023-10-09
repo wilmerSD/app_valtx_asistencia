@@ -22,12 +22,12 @@ class ResponseRegisterMarkingUserModel {
 }
 
 class DataMark {
-  String registradoComo;
-  String ubicacin;
+  String? registradoComo;
+  String? ubicacin;
 
   DataMark({
-    required this.registradoComo,
-    required this.ubicacin,
+     this.registradoComo,
+     this.ubicacin,
   });
 
   factory DataMark.fromJson(Map<String, dynamic> json) => DataMark(

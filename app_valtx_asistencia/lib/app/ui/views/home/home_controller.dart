@@ -25,7 +25,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     _getinformationUser();
-    //_getTypesMarking();
+    _getTypesMarking();
     _getAssistancesMonthUser();
     _getAssistancesWeekhUser(); 
     _checkLocationPermission();
@@ -64,6 +64,8 @@ class HomeController extends GetxController {
   var statusMessageMonth = ''.obs;
   var responseUserAssistanceWeek = <DatumWeek>[].obs;
   var responseUserAssistanceMonth = <DatumMonth>[].obs;
+  var responseUserAssistance = <DataMark>[].obs;
+  var statusMessageUserAssistance = ''.obs;
   final LatLng initialPosition = LatLng(0, 0); // Ubicación inicial en latitud y longitud.
   final Rx<LatLng> currentLocation = Rx<LatLng>(LatLng(0, 0));
   RxBool isLoading = false.obs;
@@ -142,16 +144,18 @@ class HomeController extends GetxController {
   }
 
   //Registrar asistencia
-  void assistMarker() async {
+  void assistMarker(int selectedValue) async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _registerMarkingUser.postRegisterMarking(
       RequestMarkingUserModel(
           idUser: int.parse(Iduser),
-          idTypesMarking: 1,
+          idTypesMarking: selectedValue,
           latitude: -6.764219076343798,
           longitude: -79.86364880389573),
     );
+    responseUserAssistance.assign(response.data);
+    statusMessageUserAssistance.value = response.statusMessage;
     isLoading.value = false;
     if (!response.success) {
       print("error: ${response.statusMessage}");

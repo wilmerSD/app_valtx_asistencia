@@ -19,6 +19,7 @@ class BtnMarcar extends StatelessWidget {
     return GestureDetector(
       onTap: OnTap,
       child: Container(
+        margin: EdgeInsets.only(left: 10.0,right: 10.0),
         alignment: Alignment.center,
         width: double.infinity,
         height: 50.0,
