@@ -16,6 +16,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
+GoogleMapController? mapController;
+void _onMapCreated(GoogleMapController controller) {
+  mapController = controller;
+}
+
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -25,10 +30,19 @@ class HomeView extends StatelessWidget {
         builder: (controller) => Scaffold(
               body: Stack(children: [
                 Obx(() {
+                  mapController?.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                        target: controller.currentLocation.value,
+                        zoom: 18.0,
+                      ),
+                    ),
+                  );
                   return GoogleMap(
+                    onMapCreated: _onMapCreated,
                     initialCameraPosition: CameraPosition(
                       target: controller.currentLocation.value,
-                      zoom: 100.0,
+                      zoom: 18.0,
                     ),
                     markers: {
                       Marker(
@@ -38,6 +52,24 @@ class HomeView extends StatelessWidget {
                     },
                   );
                 }),
+
+                /* GetBuilder<HomeController>(
+                    id: "idMap",
+                    builder: (_) {
+                      return GoogleMap(
+                        onMapCreated: _onMapCreated,
+                        initialCameraPosition: CameraPosition(
+                          target: controller.currentLocation.value,
+                          zoom: 18.0,
+                        ),
+                        markers: {
+                          Marker(
+                            markerId: const MarkerId('current_location'),
+                            position: controller.currentLocation.value,
+                          ),
+                        },
+                      );
+                    }), */
                 Column(
                   children: [
                     //Detalles

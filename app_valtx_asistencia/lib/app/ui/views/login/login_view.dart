@@ -19,8 +19,6 @@ class LoginView extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               decoration: const BoxDecoration(
-                // boxShadow:
-                //color: Color.fromARGB(255, 255, 139, 7)
                 image: DecorationImage(
                   image: AssetImage("assets/reunion.png"),
                   fit: BoxFit.cover,
@@ -46,15 +44,17 @@ class LoginView extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 30),
-                        text("Sistema de asistencia", 26.0,
-                            Color.fromARGB(255, 1, 2, 96), TextAlign.center),
+                        const SizedBox(height: 30),
+                        text(
+                            "Sistema de asistencia",
+                            26.0,
+                            const Color.fromARGB(255, 1, 2, 96),
+                            TextAlign.center),
                         const SizedBox(
                           height: 20.0,
                         ),
                         CustomInputField(
                           label: "Nro. documento",
-                          //onChanged: controller.onEmailChanged,
                           inputType: TextInputType.emailAddress,
                           validator: (text) {
                             if (isValidEmail(text!)) {
@@ -71,7 +71,6 @@ class LoginView extends StatelessWidget {
                         ),
                         CustomInputField(
                           label: "Contraseña",
-                          //onChanged: controller.onPasswordChanged,
                           isPassword: true,
                           validator: (text) {
                             if (text!.trim().length >= 6) {
@@ -93,13 +92,11 @@ class LoginView extends StatelessWidget {
                         title: 'Iniciar sesión',
                         gradient: const LinearGradient(
                           colors: [
-                            Color.fromARGB(255, 244, 129, 22), // Color inicial
-                            Color.fromARGB(255, 255, 87, 34), // Color final
+                            Color.fromARGB(255, 244, 129, 22),
+                            Color.fromARGB(255, 255, 87, 34),
                           ],
                           begin: Alignment.topCenter,
-                          end: Alignment
-                              .bottomCenter, // Ajusta el final a la derecha
-                          // Ajusta el desplazamiento del degradado si es necesario
+                          end: Alignment.bottomCenter,
                           stops: [0.0, 1.0],
                           tileMode: TileMode.clamp,
                         ),
@@ -127,21 +124,19 @@ class LoginView extends StatelessWidget {
                           visible: controller.isVisible.value,
                           child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: // Verifica si se debe mostrar el AlertDialog
-                                AlertDialog(
-                                    backgroundColor:
-                                        Color.fromARGB(240, 176, 176, 176),
-                                    title: const Text(
-                                      "Tipo de error",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                    content: Text(
-                                      "${controller.messageError}",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 18),
-                                    ), // Usa el mensaje de error del controlador
-                                    actions: <Widget>[
+                            child: AlertDialog(
+                                backgroundColor:
+                                    const Color.fromARGB(240, 176, 176, 176),
+                                title: const Text(
+                                  "Tipo de error",
+                                  style: TextStyle(fontWeight: FontWeight.w900),
+                                ),
+                                content: Text(
+                                  "${controller.messageError}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       controller.messageError.value = "";
@@ -169,7 +164,6 @@ Widget text(String text, double size, Color colors, TextAlign alignment) {
       fontSize: size,
       color: colors,
       fontWeight: FontWeight.w900,
-      //fontStyle: FontStyle.normal
     ),
   );
 }

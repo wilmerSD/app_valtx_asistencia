@@ -21,18 +21,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeController extends GetxController {
   @override
-  void onInit()async {
+  void onInit() async {
     await _getinformationUser();
     await _getTypesMarking();
-   await _getAssistancesMonthUser();
-   await _getAssistancesWeekhUser(); 
-   await _checkLocationPermission();
+    await _getAssistancesMonthUser();
+    await _getAssistancesWeekhUser();
+    await _checkLocationPermission();
     super.onInit();
     update();
   }
 
   @override
-  void onReady() {
+  void onReady() async {
+    /* update(); */
     super.onReady();
   }
 
@@ -66,14 +67,15 @@ class HomeController extends GetxController {
   var statusMessageUserAssistance = ''.obs;
   final LatLng initialPosition =
       LatLng(0, 0); // Ubicación inicial en latitud y longitud.
-  final Rx<LatLng> currentLocation = Rx<LatLng>(LatLng(0, 0));
+  final Rx<LatLng> currentLocation =
+      Rx<LatLng>(LatLng(0, 0 /* -12.086518686148704, -76.9908721797316 */));
   RxBool isLoading = false.obs;
   double latitude = 0.0;
   double longitude = 0.0;
 
   //Functions
   //traer información del usuario
-   _getinformationUser() async {
+  _getinformationUser() async {
     isLoading.value = true;
     final response = await _userRepository.getUserInformation(
       RequestUserInformationModel(
@@ -93,7 +95,7 @@ class HomeController extends GetxController {
   }
 
   //tipos de marcación
-   _getTypesMarking() async {
+  _getTypesMarking() async {
     isLoading.value = true;
     final response = await _typesAssistances.getTypesAssistances();
     isLoading.value = false;
@@ -104,8 +106,9 @@ class HomeController extends GetxController {
       return;
     }
   }
+
   // //Asistencias del mes
-   _getAssistancesMonthUser() async {
+  _getAssistancesMonthUser() async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _assistancesMonthkUserRepository.getAssistancesMonth(
@@ -114,7 +117,7 @@ class HomeController extends GetxController {
       ),
     );
     isLoading.value = false;
-    responseUserAssistanceMonth.assignAll(response.data??[]);
+    responseUserAssistanceMonth.assignAll(response.data ?? []);
     statusMessageMonth.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
@@ -123,8 +126,8 @@ class HomeController extends GetxController {
   }
 
   //Asistencia de la semana
-   _getAssistancesWeekhUser() async {
-     String Iduser = await StorageService.get(Keys.kIdUser);
+  _getAssistancesWeekhUser() async {
+    String Iduser = await StorageService.get(Keys.kIdUser);
     isLoading.value = true;
     final response = await _assistancesWeekUserRepository.getAssistancesWeek(
       RequestIdUserModel(
@@ -132,7 +135,7 @@ class HomeController extends GetxController {
       ),
     );
     isLoading.value = false;
-    responseUserAssistanceWeek.assignAll(response.data??[]);
+    responseUserAssistanceWeek.assignAll(response.data ?? []);
     statusMessageWeek.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");
@@ -141,7 +144,7 @@ class HomeController extends GetxController {
   }
 
   //Registrar asistencia
-   assistMarker(int selectedValue) async {
+  assistMarker(int selectedValue) async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _registerMarkingUser.postRegisterMarking(
@@ -158,6 +161,7 @@ class HomeController extends GetxController {
       print("error: ${response.statusMessage}");
       return;
     }
+    /* update(["idMap"]); */
   }
 
   Future<void> _checkLocationPermission() async {
@@ -182,6 +186,8 @@ class HomeController extends GetxController {
     longitude = position.longitude;
     print('${latitude}');
     print('${longitude}');
+    update();
+    /* Get.forceAppUpdate(); */
   }
 
   void navigateToScreen() {
