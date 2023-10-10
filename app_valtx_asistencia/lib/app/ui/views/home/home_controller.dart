@@ -13,29 +13,26 @@ import 'package:app_valtx_asistencia/app/repositories/asisstances_week_user_repo
 import 'package:app_valtx_asistencia/app/repositories/register_marking_user_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/types_assistances_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/user_repositori.dart';
-import 'package:app_valtx_asistencia/routes/app_routes.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart' as locations;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
 class HomeController extends GetxController {
   @override
-  void onInit() {
-    _getinformationUser();
-    _getTypesMarking();
-    _getAssistancesMonthUser();
-    _getAssistancesWeekhUser(); 
-    _checkLocationPermission();
+  void onInit()async {
+    await _getinformationUser();
+    await _getTypesMarking();
+   await _getAssistancesMonthUser();
+   await _getAssistancesWeekhUser(); 
+   await _checkLocationPermission();
     super.onInit();
     update();
   }
 
   @override
   void onReady() {
-
     super.onReady();
   }
 
@@ -45,8 +42,8 @@ class HomeController extends GetxController {
   }
 
   //Instance
-  locations.Location location =locations.Location();
-  locations.LocationData? locationData; 
+  locations.Location location = locations.Location();
+  locations.LocationData? locationData;
   final _userRepository = Get.find<UserRepository>();
   final _assistancesWeekUserRepository =
       Get.find<AssistanceWeekUserRepository>();
@@ -57,7 +54,7 @@ class HomeController extends GetxController {
 
   //Variables
   var responseUserInformation = DataUser().obs;
-  var responseTypesMarking =  <DatumAssistances>[].obs;
+  var responseTypesMarking = <DatumAssistances>[].obs;
   var statusMessageTypesMarking = ''.obs;
   var statusMessageUserInformation = ''.obs;
   var statusMessageWeek = ''.obs;
@@ -65,18 +62,18 @@ class HomeController extends GetxController {
   var responseUserAssistanceWeek = <DatumWeek>[].obs;
   var responseUserAssistanceMonth = <DatumMonth>[].obs;
   var responseUserAssistance = <DataMark>[].obs;
+  var responseAssistance = ''.obs;
   var statusMessageUserAssistance = ''.obs;
-  final LatLng initialPosition = LatLng(0, 0); // Ubicación inicial en latitud y longitud.
+  final LatLng initialPosition =
+      LatLng(0, 0); // Ubicación inicial en latitud y longitud.
   final Rx<LatLng> currentLocation = Rx<LatLng>(LatLng(0, 0));
   RxBool isLoading = false.obs;
-  int userId = 0;
-  String username = '';
-  String password = '';
-  String token = '';
+  double latitude = 0.0;
+  double longitude = 0.0;
 
   //Functions
   //traer información del usuario
-  void _getinformationUser() async {
+   _getinformationUser() async {
     isLoading.value = true;
     final response = await _userRepository.getUserInformation(
       RequestUserInformationModel(
@@ -96,10 +93,9 @@ class HomeController extends GetxController {
   }
 
   //tipos de marcación
-  void _getTypesMarking() async {
+   _getTypesMarking() async {
     isLoading.value = true;
-    final response = await _typesAssistances.getTypesAssistances(
-    );
+    final response = await _typesAssistances.getTypesAssistances();
     isLoading.value = false;
     responseTypesMarking.assignAll(response.data);
     statusMessageTypesMarking.value = response.statusMessage;
@@ -108,13 +104,13 @@ class HomeController extends GetxController {
       return;
     }
   }
-
   // //Asistencias del mes
-  void _getAssistancesMonthUser() async {
+   _getAssistancesMonthUser() async {
+    String Iduser = await StorageService.get(Keys.kIdUser);
     isLoading.value = true;
     final response = await _assistancesMonthkUserRepository.getAssistancesMonth(
       RequestIdUserModel(
-        idUser: 1
+        idUser: int.parse(Iduser),
       ),
     );
     isLoading.value = false;
@@ -127,11 +123,12 @@ class HomeController extends GetxController {
   }
 
   //Asistencia de la semana
-  void _getAssistancesWeekhUser() async {
+   _getAssistancesWeekhUser() async {
+     String Iduser = await StorageService.get(Keys.kIdUser);
     isLoading.value = true;
     final response = await _assistancesWeekUserRepository.getAssistancesWeek(
       RequestIdUserModel(
-        idUser: 1
+        idUser: int.parse(Iduser),
       ),
     );
     isLoading.value = false;
@@ -144,28 +141,26 @@ class HomeController extends GetxController {
   }
 
   //Registrar asistencia
-  void assistMarker(int selectedValue) async {
+   assistMarker(int selectedValue) async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _registerMarkingUser.postRegisterMarking(
       RequestMarkingUserModel(
           idUser: int.parse(Iduser),
           idTypesMarking: selectedValue,
-          latitude: -6.764219076343798,
-          longitude: -79.86364880389573),
+          latitude: latitude,
+          longitude: longitude),
     );
+    isLoading.value = false;
     responseUserAssistance.assign(response.data);
     statusMessageUserAssistance.value = response.statusMessage;
-    isLoading.value = false;
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
     }
   }
 
-   
-
-Future<void> _checkLocationPermission() async {
+  Future<void> _checkLocationPermission() async {
     final hasPermission = await location.hasPermission();
     if (hasPermission == locations.PermissionStatus.denied) {
       final requestPermission = await location.requestPermission();
@@ -175,18 +170,21 @@ Future<void> _checkLocationPermission() async {
         return;
       }
     }
-    _getCurrentLocation();
+    getCurrentLocation();
   }
 
-Future<void> _getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
     currentLocation.value = LatLng(position.latitude, position.longitude);
+    latitude = position.latitude;
+    longitude = position.longitude;
+    print('${latitude}');
+    print('${longitude}');
   }
 
   void navigateToScreen() {
     Get.toNamed(AppRoutesName.DETAIL);
   }
-   
 }

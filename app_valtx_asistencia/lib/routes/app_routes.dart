@@ -1,5 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_binding.dart';
-import 'package:app_valtx_asistencia/app/ui/views/home/home_view2.dart';
+import 'package:app_valtx_asistencia/app/ui/views/home/home_view.dart';
 import 'package:app_valtx_asistencia/app/ui/views/login/login_binding.dart';
 import 'package:app_valtx_asistencia/app/ui/views/login/login_view.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_binding.dart';
@@ -19,7 +19,7 @@ abstract class AppRoutes {
     ),
     GetPage(
       name: AppRoutesName.HOME,
-      page: () => const HomeView2(),
+      page: () => const HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(

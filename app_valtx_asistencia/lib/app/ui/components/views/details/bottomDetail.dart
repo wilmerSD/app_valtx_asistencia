@@ -1,4 +1,3 @@
-import 'package:app_valtx_asistencia/app/ui/components/dashed_line.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,12 +30,13 @@ class BottomDetail extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Obx(
                     () {
-                      if (controller.responseDataMes.isEmpty) {
-                        return Center(
-                          child: Text('${controller.statusMessageMonth}'),
-                        );
-                      } else {
-                        return Row(
+                     return controller.isLoading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : controller.responseDataDia.isEmpty
+                        ? Center(
+                            child: Text('${controller.statusMessageMonth}'),
+                          )
+                        : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: controller.responseDataMes.map((itemMonth) {
                             return Column(
@@ -62,7 +62,7 @@ class BottomDetail extends StatelessWidget {
                           }).toList(),
                         );
                       }
-                    },
+  
                   ),
                 ),
               ],

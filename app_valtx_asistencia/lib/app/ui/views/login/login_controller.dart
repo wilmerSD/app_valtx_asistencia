@@ -36,6 +36,7 @@ class LoginController extends GetxController {
   RxBool isLoading = false.obs;
   //Functions
   void doAuth() async {
+    isLoading.value = true;
     try {
       final response = await _authenticationRepository.postAuthentication(
         RequestAuthenticationModel(

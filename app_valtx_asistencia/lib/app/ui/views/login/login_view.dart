@@ -42,7 +42,7 @@ class LoginView extends StatelessWidget {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.63,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -98,7 +98,18 @@ class LoginView extends StatelessWidget {
                     BtnMarcar(
                         OnTap: controller.doAuth,
                         title: 'Iniciar sesión',
-                        color: const Color.fromARGB(241, 247, 103, 1),
+                        gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 244, 129, 22), // Color inicial
+                          Color.fromARGB(255, 255, 87, 34), // Color final
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment
+                            .bottomCenter, // Ajusta el final a la derecha
+                        // Ajusta el desplazamiento del degradado si es necesario
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp,
+                      ),
                         sombra: const Color.fromARGB(241, 247, 103, 1))
                   ],
                 ),
@@ -120,7 +131,7 @@ class LoginView extends StatelessWidget {
               Container(
                 child: Obx(() {
                   return controller.isLoading.value
-                      ? const CircularProgressIndicator()
+                      ? const Center(child:  CircularProgressIndicator())
                       : Visibility(
                           visible: isVisible.value,
                           child: Align(

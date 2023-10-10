@@ -17,7 +17,9 @@ class ResponseRegisterMarkingUserModel {
         success: json["success"],
         statusCode: json["status_code"],
         statusMessage: json["status_message"],
-        data: DataMark.fromJson(json["data"]),
+        data: (json["data"] != null && json["data"].isEmpty)
+            ? DataMark()
+            : DataMark.fromJson(json["data"]),
       );
 }
 
@@ -26,7 +28,7 @@ class DataMark {
   String? ubicacin;
 
   DataMark({
-     this.registradoComo,
+    this.registradoComo,
      this.ubicacin,
   });
 

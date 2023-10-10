@@ -7,6 +7,7 @@ class DashedLine extends StatelessWidget {
   final double dashWidth;
   final double dashGap;
   final Axis direction;
+  final EdgeInsets margin;
 
   DashedLine({
     this.height = 1.0,
@@ -15,19 +16,23 @@ class DashedLine extends StatelessWidget {
     this.dashWidth = 5.0,
     this.dashGap = 3.0,
     this.direction = Axis.horizontal,
+    this.margin = EdgeInsets.zero,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: direction == Axis.horizontal
-          ? Size(width, height)
-          : Size(height, width),
-      painter: DashedLinePainter(
-        color: color,
-        dashWidth: dashWidth,
-        dashGap: dashGap,
-        direction: direction,
+    return Container(
+      margin: margin,
+      child: CustomPaint(
+        size: direction == Axis.horizontal
+            ? Size(width, height)
+            : Size(height, width),
+        painter: DashedLinePainter(
+          color: color,
+          dashWidth: dashWidth,
+          dashGap: dashGap,
+          direction: direction,
+        ),
       ),
     );
   }

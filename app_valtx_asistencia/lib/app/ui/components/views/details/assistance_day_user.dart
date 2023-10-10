@@ -18,7 +18,7 @@ class AssistanceDayUser extends StatelessWidget {
                     ? const Center(child: CircularProgressIndicator())
                     : controller.responseDataDia.isEmpty
                         ? Center(
-                            child: Text('${controller.responseDataDia}'),
+                            child: Text('${controller.statusMessageDay}'),
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

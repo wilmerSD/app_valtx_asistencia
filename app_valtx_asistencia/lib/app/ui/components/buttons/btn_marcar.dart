@@ -5,13 +5,13 @@ class BtnMarcar extends StatelessWidget {
     Key? key,
     required this.OnTap,
     required this.title,
-    required this.color,
+    required this.gradient,
     required this.sombra,
   }) : super(key: key);
 
   final void Function() OnTap;
   final String title;
-  final Color color;
+  final LinearGradient gradient;
   final Color sombra;
 
   @override
@@ -22,10 +22,10 @@ class BtnMarcar extends StatelessWidget {
         margin: EdgeInsets.only(left: 10.0,right: 10.0),
         alignment: Alignment.center,
         width: double.infinity,
-        height: 50.0,
+        height: MediaQuery.of(context).size.height * 0.06,
         //margin: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-            color: color,
+            gradient: gradient,
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             boxShadow: [
               BoxShadow(

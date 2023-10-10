@@ -12,11 +12,14 @@ class UserInformation extends StatelessWidget {
         builder: (controller) => Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: double.infinity,
-            margin: const EdgeInsets.only(left: 10, right: 10.0, bottom: 10.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-            ),
+            margin: const EdgeInsets.only(left: 10, right: 10.0),
+            decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      topLeft: Radius.circular(10.0),
+                    ),
+                    color: Colors.white,
+                  ),
             child: Obx(() {
               return controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
