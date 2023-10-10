@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/constant.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
@@ -324,7 +325,70 @@ String getWeekCurrent() {
   final format = DateFormat('EEEE dd \'de\' MMM.', 'es');
   return format.format(now);
 }
-
+  // Definición de la función para mostrar el diálogo de tipos de marcación
+  void showTypesMarkingDialog(
+      BuildContext context, HomeController controller) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+            // Define un tema personalizado para el diálogo
+            data: ThemeData(
+              // Establece el color de fondo deseado (por ejemplo, blanco)
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: controller.isLoading.value
+                ? const Center(child: CircularProgressIndicator())
+                : controller.responseTypesMarking.isEmpty
+                    ? Center(
+                        child: Text('${controller.statusMessageTypesMarking}'),
+                      )
+                    : AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Ajusta el radio según tus preferencias
+                        ),
+                        backgroundColor: Colors.white,
+                        title: const Text('Seleccionar tipo de marcación'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: controller.responseTypesMarking.map((type) {
+                            return ListTile(
+                              title: Text(type.description),
+                              onTap: () {
+                                Navigator.pop(context, type.idTypesMarking);
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ));
+      },
+    ).then((selectedValue) {
+      if (selectedValue != null) {
+        controller.assistMarker(selectedValue);
+        Future.delayed(const Duration(seconds: 2), () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                title: const Text('Información de asistencia'),
+                content: Text('${controller.statusMessageUserAssistance}'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Aceptar'),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+      }
+    });
+  }
   static void showSnackBar(
     BuildContext context, {
     required String title,

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color backgroundColor = Color.fromRGBO(250, 250, 250, 1);
-  static const Color red = Color.fromRGBO(230, 0, 0, 1.0);
+  static const Color red = Color.fromARGB(255, 244, 48, 22);
+  static const Color degradedInitial = Color.fromARGB(255, 244, 129, 22);
+  static const Color degradedEnd = Color.fromARGB(255, 244, 129, 22);
   static const Color redLoading = Color.fromRGBO(230, 0, 0, 0.8);
   static const Color black = Color.fromRGBO(27, 21, 61, 1.0);
   static const Color grayLight = Color.fromRGBO(146, 146, 178, 1);
@@ -25,8 +27,8 @@ class AppColors {
 
   static const LinearGradient primaryGradient = LinearGradient(
     colors: [
-      red,
-      red,
+      degradedInitial,
+      degradedEnd,
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
