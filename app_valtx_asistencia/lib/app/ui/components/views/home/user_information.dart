@@ -23,12 +23,7 @@ class UserInformation extends StatelessWidget {
             child: Obx(() {
               return controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
-                  : controller.responseUserAssistanceWeek.isEmpty
-                      ? Center(
-                          child: Text(
-                              '${controller.statusMessageUserInformation}'),
-                        )
-                      : ListTile(
+                  : ListTile(
                           leading:
                               const CircleAvatar(backgroundColor: Colors.blue,),
                           title: Text(

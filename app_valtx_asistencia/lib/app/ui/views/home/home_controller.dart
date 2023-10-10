@@ -106,8 +106,8 @@ class HomeController extends GetxController {
   }
   // //Asistencias del mes
    _getAssistancesMonthUser() async {
-    String Iduser = await StorageService.get(Keys.kIdUser);
     isLoading.value = true;
+    String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _assistancesMonthkUserRepository.getAssistancesMonth(
       RequestIdUserModel(
         idUser: int.parse(Iduser),

@@ -107,7 +107,7 @@ class HomeView extends StatelessWidget {
             ),
             child: controller.isLoading.value
                 ? const Center(child: CircularProgressIndicator())
-                : controller.responseUserAssistanceWeek.isEmpty
+                : controller.responseTypesMarking.isEmpty
                     ? Center(
                         child: Text('${controller.statusMessageTypesMarking}'),
                       )

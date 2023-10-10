@@ -32,7 +32,7 @@ class BottomDetail extends StatelessWidget {
                     () {
                      return controller.isLoading.value
                     ? const Center(child: CircularProgressIndicator())
-                    : controller.responseDataDia.isEmpty
+                    : controller.responseDataMes.isEmpty
                         ? Center(
                             child: Text('${controller.statusMessageMonth}'),
                           )
