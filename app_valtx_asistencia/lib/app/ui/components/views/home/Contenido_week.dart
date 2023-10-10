@@ -56,7 +56,7 @@ class ContenidoWeek extends StatelessWidget {
                   ),
                   child: Obx(() {
                     return controller.isLoading.value
-                        ?const Center( child:  CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : controller.responseUserAssistanceWeek.isEmpty
                             ? Center(
                                 child: Text('${controller.statusMessageWeek}'),
@@ -66,7 +66,7 @@ class ContenidoWeek extends StatelessWidget {
                                 itemCount: controller
                                     .responseUserAssistanceWeek.length,
                                 separatorBuilder: (context, index) {
-                                  return const SizedBox(width: 50.0);
+                                  return const SizedBox(width: 25.0);
                                 },
                                 itemBuilder: (context, index) {
                                   final item = controller

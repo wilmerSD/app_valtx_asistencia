@@ -96,6 +96,7 @@ class HomeView extends StatelessWidget {
                       OnTap: () {
                         _showTypesMarkingDialog(context, controller);
                         controller.getCurrentLocation();
+                        controller.getNameLocation();
                       },
                       title: 'Marcar',
                       gradient: const LinearGradient(

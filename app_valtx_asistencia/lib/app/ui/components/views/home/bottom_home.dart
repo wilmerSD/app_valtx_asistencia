@@ -9,58 +9,65 @@ class BottomHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
         builder: (controller) => Container(
-          height: MediaQuery.of(context).size.height * 0.11,
-          margin:const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-          decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                    color: Colors.white,
-                  ),
-          child: Column(
+              height: MediaQuery.of(context).size.height * 0.11,
+              margin:
+                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                ),
+                color: Colors.white,
+              ),
+              child: Column(
                 children: [
                   SizedBox(
                     //color: Colors.red,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Obx(
                       () {
-                        if (controller.responseUserAssistanceMonth.isEmpty) {
-                          return Center(
-                            child: Text('${controller.statusMessageMonth}'),
-                          );
-                        } else {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: controller.responseUserAssistanceMonth.map((itemMonth) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${itemMonth.quantity}',
-                                    style: const TextStyle(
-                                      color: Color.fromRGBO(38, 52, 113, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    itemMonth.description!,
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          );
-                        }
+                        return controller.isLoading.value
+                            ? const Center(child: CircularProgressIndicator())
+                            : controller.responseUserAssistanceMonth.isEmpty
+                                ? Center(
+                                    child: Text(
+                                        '${controller.statusMessageMonth}'),
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: controller
+                                        .responseUserAssistanceMonth
+                                        .map((itemMonth) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '${itemMonth.quantity}',
+                                            style: const TextStyle(
+                                              color: Color.fromRGBO(
+                                                  38, 52, 113, 1),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            itemMonth.description!,
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  );
                       },
                     ),
                   ),
                 ],
               ),
-        ));
+            ));
   }
 }

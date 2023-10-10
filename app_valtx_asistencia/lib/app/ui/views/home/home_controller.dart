@@ -14,6 +14,7 @@ import 'package:app_valtx_asistencia/app/repositories/register_marking_user_repo
 import 'package:app_valtx_asistencia/app/repositories/types_assistances_repository.dart';
 import 'package:app_valtx_asistencia/app/repositories/user_repositori.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart' as locations;
@@ -27,6 +28,8 @@ class HomeController extends GetxController {
     await _getAssistancesMonthUser();
     await _getAssistancesWeekhUser();
     await _checkLocationPermission();
+    await getCurrentLocation();
+    await getNameLocation();
     super.onInit();
     update();
   }
@@ -72,7 +75,7 @@ class HomeController extends GetxController {
   RxBool isLoading = false.obs;
   double latitude = 0.0;
   double longitude = 0.0;
-
+  RxString nameLocation = "Obteniendo ubicación...".obs;
   //Functions
   //traer información del usuario
   _getinformationUser() async {
@@ -192,5 +195,19 @@ class HomeController extends GetxController {
 
   void navigateToScreen() {
     Get.toNamed(AppRoutesName.DETAIL);
+  }
+
+  getNameLocation() async {
+    /* isLoading.value = true; */
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+    /* isLoading.value = false; */
+    if (placemarks.isNotEmpty) {
+      Placemark placemark = placemarks[0];
+      String streetName = placemark.street ?? '';
+      nameLocation.value = streetName;
+    } else {
+      nameLocation.value = "Ubicación no encontrada";
+    }
   }
 }
