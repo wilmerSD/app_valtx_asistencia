@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class SplashController extends GetxController {
   @override
   void onInit() {
-    _initialize();
+    _initialize2();
     super.onInit();
   }
 
@@ -47,12 +47,41 @@ class SplashController extends GetxController {
     }
 
     //Guardar la información en sesión
-    await StorageService.set(key: Keys.kTokenSesion, value: response.data!.token);
+    await StorageService.set(
+        key: Keys.kTokenSesion, value: response.data!.token);
     await StorageService.set(key: Keys.kUserName, value: userName);
     await StorageService.set(key: Keys.kPassword, value: password);
-    
+
     //Ir a nueva ruta y eliminar de memoria controllers existentes
     Get.offNamed(AppRoutesName.HOME);
+  }
 
+  void _initialize2() async {
+    final userName = await StorageService.get(Keys.kUserName);
+    final password = await StorageService.get(Keys.kPassword);
+
+    if (userName.isNotEmpty && password.isNotEmpty) {
+      final response = await _authenticationRepository.postAuthentication(
+        RequestAuthenticationModel(
+          username: userName,
+          password: password,
+        ),
+      );
+
+      if (response.success) {
+        Future.delayed(
+          const Duration(milliseconds: 600),
+          () {
+            Get.offNamed(AppRoutesName.HOME);
+          },
+        );
+      } else {
+        Get.offNamed(AppRoutesName.LOGIN);
+      }
+    } else {
+      Future.delayed(const Duration(seconds: 1), () {
+        Get.offNamed(AppRoutesName.LOGIN);
+      });
+    }
   }
 }

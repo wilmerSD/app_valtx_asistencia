@@ -34,6 +34,7 @@ class LoginController extends GetxController {
   String password = '';
   RxString messageError = RxString("");
   RxBool isLoading = false.obs;
+  RxBool isVisible = false.obs;
   //Functions
   void doAuth() async {
     isLoading.value = true;
@@ -48,7 +49,8 @@ class LoginController extends GetxController {
       print("mensaje: ${response.statusMessage}");
       if (!response.success) {
         messageError.value = response.statusMessage;
-
+        isVisible.value = true;
+        Get.forceAppUpdate();
         /* print("error: ${response.statusMessage}"); */
         return;
       }

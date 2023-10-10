@@ -1,14 +1,10 @@
-import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/app/ui/components/buttons/btn_marcar.dart';
-import 'package:app_valtx_asistencia/app/ui/components/views/views_login/alert_error_login2.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/views_login/custom_input_field.dart';
 import 'package:app_valtx_asistencia/app/ui/views/login/login_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/validators.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-RxBool isVisible = RxBool(true);
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -19,9 +15,6 @@ class LoginView extends StatelessWidget {
       builder: (controller) => Scaffold(
         body: Stack(
           children: [
-            // Verifica si se debe mostrar el AlertDialog
-            /* if (controller.messageError.isNotEmpty) */
-
             Container(
               width: double.infinity,
               height: double.infinity,
@@ -99,127 +92,68 @@ class LoginView extends StatelessWidget {
                         OnTap: controller.doAuth,
                         title: 'Iniciar sesión',
                         gradient: const LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 244, 129, 22), // Color inicial
-                          Color.fromARGB(255, 255, 87, 34), // Color final
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment
-                            .bottomCenter, // Ajusta el final a la derecha
-                        // Ajusta el desplazamiento del degradado si es necesario
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp,
-                      ),
+                          colors: [
+                            Color.fromARGB(255, 244, 129, 22), // Color inicial
+                            Color.fromARGB(255, 255, 87, 34), // Color final
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment
+                              .bottomCenter, // Ajusta el final a la derecha
+                          // Ajusta el desplazamiento del degradado si es necesario
+                          stops: [0.0, 1.0],
+                          tileMode: TileMode.clamp,
+                        ),
                         sombra: const Color.fromARGB(241, 247, 103, 1))
                   ],
                 ),
               ),
             ),
-
             if (controller.messageError.value.isNotEmpty)
-              /* AlertErrorLogin2(
-                  OnTap: () {
-                    controller.messageError.value = "";
-                  },
-                  text: "${controller.messageError}"), */
-              /* AltError(
-                textError: "${controller.messageError}",
-                /* OnTap: () {
-                  controller.messageError.value = "";
-                }, */
-              ), */
               Container(
                 child: Obx(() {
                   return controller.isLoading.value
-                      ? const Center(child:  CircularProgressIndicator())
+                      ? const Center(
+                          child: SizedBox(
+                            width: 80.0, //
+                            height: 80.0, //
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color.fromARGB(241, 247, 103, 1)),
+                              strokeWidth: 6.0,
+                            ),
+                          ),
+                        )
                       : Visibility(
-                          visible: isVisible.value,
+                          visible: controller.isVisible.value,
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: // Verifica si se debe mostrar el AlertDialog
                                 AlertDialog(
                                     backgroundColor:
                                         Color.fromARGB(240, 176, 176, 176),
-                                    title: const Text("Tipo de error"),
-                                    content: Text("${controller.messageError}",
-                                        textAlign: TextAlign
-                                            .center), // Usa el mensaje de error del controlador
+                                    title: const Text(
+                                      "Tipo de error",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                    content: Text(
+                                      "${controller.messageError}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 18),
+                                    ), // Usa el mensaje de error del controlador
                                     actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       controller.messageError.value = "";
-                                      /* Navigator.of(context).pushReplacement; */
-                                      /* Get.back(); */
-                                      isVisible.value = false;
+                                      controller.isVisible.value = false;
                                     },
                                     child: const Text("OK"),
                                   ),
                                 ]),
                           ),
                         );
-                }
-                    /* () => Visibility(
-                    visible: isVisible.value,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: // Verifica si se debe mostrar el AlertDialog
-                          AlertDialog(
-                              backgroundColor: Color.fromARGB(240, 176, 176, 176),
-                              title: const Text("Tipo de error"),
-                              content: Text("${controller.messageError}",
-                                  textAlign: TextAlign
-                                      .center), // Usa el mensaje de error del controlador
-                              actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                controller.messageError.value = "";
-                                /* Navigator.of(context).pushReplacement; */
-                                /* Get.back(); */
-                                isVisible.value = false;
-                              },
-                              child: const Text("OK"),
-                            ),
-                          ]),
-                    ),
-                  ), */
-                    ),
+                }),
               )
-            /* Align(
-                alignment: Alignment.bottomCenter,
-                child: // Verifica si se debe mostrar el AlertDialog
-                    AlertDialog(
-                        backgroundColor: Color.fromARGB(240, 176, 176, 176),
-                        title: const Text("Tipo de error"),
-                        content: Text("${controller.messageError}",
-                            textAlign: TextAlign
-                                .center), // Usa el mensaje de error del controlador
-                        actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          controller.messageError.value = "";
-                          /* Navigator.of(context).pushReplacement; */
-                          /* Get.back(); */
-                          Get.offNamed(AppRoutesName.DETAIL);
-                        },
-                        child: const Text("OK"),
-                      ),
-                    ]),
-              ) */
-            /* if (controller.messageError
-                .isNotEmpty) // Verifica si se debe mostrar el AlertDialog
-              AlertDialog(
-                title: Text("${controller.messageError}"),
-                content: Text(controller
-                    .messageError), // Usa el mensaje de error del controlador
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Cierra el diálogo
-                    },
-                    child: Text("OK"),
-                  ),
-                ],
-              ), */
           ],
         ),
       ),

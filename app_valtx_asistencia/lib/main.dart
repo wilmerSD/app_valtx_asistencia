@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     initializeDateFormatting('es', null);
+    initializeDateFormatting('es', null);
     return GetMaterialApp(
       title: 'Marcaciones',
       theme: ThemeData(
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutesName.LOGIN,
+      initialRoute: AppRoutesName.SPLASH,
       getPages: AppRoutes.routes,
     );
   }
