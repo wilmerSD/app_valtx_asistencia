@@ -73,20 +73,21 @@ class HomeController extends GetxController {
   final Rx<LatLng> currentLocation =
       Rx<LatLng>(LatLng(0, 0 /* -12.086518686148704, -76.9908721797316 */));
   RxBool isLoading = false.obs;
+  RxBool isLoadingUser = false.obs;
   double latitude = 0.0;
   double longitude = 0.0;
   RxString nameLocation = "Obteniendo ubicación...".obs;
   //Functions
   //traer información del usuario
   _getinformationUser() async {
-    isLoading.value = true;
+    isLoadingUser.value = true;
     final response = await _userRepository.getUserInformation(
       RequestUserInformationModel(
         username: await StorageService.get(Keys.kUserName),
         password: await StorageService.get(Keys.kPassword),
       ),
     );
-    isLoading.value = false;
+    isLoadingUser.value = false;
     responseUserInformation.value = response.data;
     statusMessageUserInformation.value = response.statusMessage;
     if (!response.success) {
@@ -164,7 +165,8 @@ class HomeController extends GetxController {
       print("error: ${response.statusMessage}");
       return;
     }
-    /* update(["idMap"]); */
+    _getAssistancesMonthUser();
+    _getAssistancesWeekhUser();
   }
 
   Future<void> _checkLocationPermission() async {

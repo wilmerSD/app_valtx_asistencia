@@ -22,7 +22,7 @@ class UserInformation extends StatelessWidget {
               color: Colors.white,
             ),
             child: Obx(() {
-              return controller.isLoading.value
+              return controller.isLoadingUser.value
                   ? const Center(child: CircularProgressIndicator())
                   : ListTile(
                       leading: const CircleAvatar(
