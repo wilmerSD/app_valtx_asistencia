@@ -210,4 +210,9 @@ class HomeController extends GetxController {
       nameLocation.value = "Ubicación no encontrada";
     }
   }
+
+  loginout() async {
+    await StorageService.deleteAll();
+    Get.offNamed(AppRoutesName.LOGIN);
+  }
 }

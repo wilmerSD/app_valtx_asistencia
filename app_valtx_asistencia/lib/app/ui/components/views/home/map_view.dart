@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+GoogleMapController? mapController;
+void _onMapCreated(GoogleMapController controller) {
+  mapController = controller;
+}
+
 class MapView extends StatelessWidget {
   const MapView({Key? key}) : super(key: key);
 
@@ -33,9 +38,4 @@ class MapView extends StatelessWidget {
               );
             }));
   }
-}
-
-GoogleMapController? mapController;
-void _onMapCreated(GoogleMapController controller) {
-  mapController = controller;
 }

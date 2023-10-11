@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
+import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -37,6 +38,22 @@ class UserInformation extends StatelessWidget {
                           ),
                           Text(controller.nameLocation.value),
                         ],
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () => controller.loginout(),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 244, 129, 22),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Iconsax.login,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                        ),
                       ),
                     );
             })));

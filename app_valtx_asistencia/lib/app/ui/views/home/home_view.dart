@@ -9,7 +9,13 @@ import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+/* GoogleMapController? mapController;
+void _onMapCreated(GoogleMapController controller) {
+  mapController = controller;
+}
+ */
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -19,7 +25,30 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
               body: Stack(children: [
-                const MapView(),
+                /*  Obx(() {
+                  mapController?.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                        target: controller.currentLocation.value,
+                        zoom: 18.0,
+                      ),
+                    ),
+                  );
+                  return GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                      target: controller.currentLocation.value,
+                      zoom: 18.0,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId('current_location'),
+                        position: controller.currentLocation.value,
+                      ),
+                    },
+                  );
+                }), */
+                MapView(),
                 Column(
                   children: [
                     //Detalles
@@ -38,7 +67,7 @@ class HomeView extends StatelessWidget {
                       color: Colors.grey,
                       width: double.infinity,
                       height: 1.0,
-                      margin:const EdgeInsets.only(left: 10.0, right: 15.0),
+                      margin: const EdgeInsets.only(left: 10.0, right: 15.0),
                     ),
                     const BottomHome(),
                     //Para marcar asistencia
@@ -51,12 +80,11 @@ class HomeView extends StatelessWidget {
                       title: 'Marcar',
                       gradient: const LinearGradient(
                         colors: [
-                          Color.fromARGB(255, 244, 129, 22), 
-                          Color.fromARGB(255, 255, 87, 34), 
+                          Color.fromARGB(255, 244, 129, 22),
+                          Color.fromARGB(255, 255, 87, 34),
                         ],
                         begin: Alignment.topCenter,
-                        end: Alignment
-                            .bottomCenter,
+                        end: Alignment.bottomCenter,
                         stops: [0.0, 1.0],
                         tileMode: TileMode.clamp,
                       ),
@@ -70,6 +98,4 @@ class HomeView extends StatelessWidget {
               ]),
             ));
   }
-
-
 }

@@ -1,11 +1,7 @@
 import 'package:app_valtx_asistencia/app/local/storage_service.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_authentication_model.dart';
 import 'package:app_valtx_asistencia/app/repositories/authentication_repository.dart';
-import 'package:app_valtx_asistencia/app/repositories/user_repositori.dart';
-import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/core/helpers/keys.dart';
-import 'package:app_valtx_asistencia/core/helpers/popup_message.dart';
-import 'package:app_valtx_asistencia/routes/app_routes.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
