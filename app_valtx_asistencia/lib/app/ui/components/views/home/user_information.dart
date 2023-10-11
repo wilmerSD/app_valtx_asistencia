@@ -26,7 +26,9 @@ class UserInformation extends StatelessWidget {
                   ? const Center(child: CircularProgressIndicator())
                   : ListTile(
                       leading: const CircleAvatar(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Color.fromRGBO(38, 52, 113, 1),
+                            radius: 25,
+                            child: Icon(Icons.person, color: Colors.white,size:30),
                       ),
                       title: Text(
                           "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}"),
