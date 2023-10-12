@@ -33,28 +33,6 @@ class SplashController extends GetxController {
   //TextEditingController
 
   //Function
-  void _initialize() async {
-    final response = await _authenticationRepository.postAuthentication(
-      RequestAuthenticationModel(
-        username: userName,
-        password: password,
-      ),
-    );
-
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
-    }
-
-    //Guardar la información en sesión
-    await StorageService.set(
-        key: Keys.kTokenSesion, value: response.data!.token);
-    await StorageService.set(key: Keys.kUserName, value: userName);
-    await StorageService.set(key: Keys.kPassword, value: password);
-
-    //Ir a nueva ruta y eliminar de memoria controllers existentes
-    Get.offNamed(AppRoutesName.HOME);
-  }
 
   void _initialize2() async {
     final userName = await StorageService.get(Keys.kUserName);
@@ -69,6 +47,8 @@ class SplashController extends GetxController {
       );
 
       if (response.success) {
+        await StorageService.set(
+            key: Keys.kTokenSesion, value: response.data!.token);
         Future.delayed(
           const Duration(milliseconds: 600),
           () {
