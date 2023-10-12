@@ -42,9 +42,9 @@ class LoginController extends GetxController {
         ),
       );
       isLoading.value = false;
+      messageError.value = response.statusMessage;
       print("mensaje: ${response.statusMessage}");
       if (!response.success) {
-        messageError.value = response.statusMessage;
         isVisible.value = true;
         Get.forceAppUpdate();
         /* print("error: ${response.statusMessage}"); */

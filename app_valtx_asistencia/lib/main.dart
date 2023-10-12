@@ -1,6 +1,7 @@
 import 'package:app_valtx_asistencia/core/config/app_config.dart';
 import 'package:app_valtx_asistencia/core/helpers/dependency_injection.dart';
 import 'package:app_valtx_asistencia/core/network/dio_config.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:app_valtx_asistencia/routes/app_routes.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Marcaciones',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor:AppColors.blueDark),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,

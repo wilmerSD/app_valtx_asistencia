@@ -3,6 +3,7 @@ import 'package:app_valtx_asistencia/app/ui/components/views/views_login/alert_e
 import 'package:app_valtx_asistencia/app/ui/components/views/views_login/forms_login.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/views_login/text_login.dart';
 import 'package:app_valtx_asistencia/app/ui/views/login/login_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +14,9 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
       builder: (controller) => Scaffold(
+        backgroundColor: Colors.white,
         body: GestureDetector(
-          onTap: ()=>FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: [
               Container(
@@ -29,7 +31,7 @@ class LoginView extends StatelessWidget {
                 child: const TextLogin(
                     text: "Valtx",
                     size: 40.0,
-                    colors: Colors.white,
+                    colors: AppColors.backgroundColor,
                     alignment: TextAlign.center),
               ),
               Align(
@@ -39,7 +41,7 @@ class LoginView extends StatelessWidget {
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.63,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
@@ -60,20 +62,20 @@ class LoginView extends StatelessWidget {
                           title: 'Iniciar sesión',
                           gradient: const LinearGradient(
                             colors: [
-                              Color.fromARGB(255, 244, 129, 22),
-                              Color.fromARGB(255, 255, 87, 34),
+                              AppColors.degradedInitial,
+                              AppColors.degradedEnd,
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             stops: [0.0, 1.0],
                             tileMode: TileMode.clamp,
                           ),
-                          sombra: const Color.fromARGB(241, 247, 103, 1))
+                          sombra: AppColors.degradedInitial)
                     ],
                   ),
                 ),
               ),
-              if (controller.messageError.value.isNotEmpty)const AlertErrorLogin()
+              const AlertErrorLogin()
             ],
           ),
         ),

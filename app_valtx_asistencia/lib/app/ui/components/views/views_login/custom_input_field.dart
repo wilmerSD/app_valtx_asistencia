@@ -19,7 +19,7 @@ class CustomInputField extends StatefulWidget {
   @override
   _CustomInputFieldState createState() => _CustomInputFieldState();
 }
-
+    
 class _CustomInputFieldState extends State<CustomInputField> {
   late bool _obscureText;
 
@@ -54,7 +54,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
               },
               decoration: InputDecoration(
                 labelStyle:
-                    TextStyle(color: Color.fromARGB(255, 195, 195, 196)),
+                    const TextStyle(color: Color.fromARGB(255, 195, 195, 196)),
                 labelText: widget.label,
                 enabledBorder: const OutlineInputBorder(
                   borderSide:
@@ -82,7 +82,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             if (state.hasError)
               Text(
                 state.errorText!,
-                style: TextStyle(color: Color.fromARGB(255, 203, 100, 40)),
+                style:const TextStyle(color: Color.fromARGB(255, 203, 100, 40)),
               )
           ],
         );

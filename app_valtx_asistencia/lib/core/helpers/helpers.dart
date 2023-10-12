@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/constant.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
@@ -14,7 +15,8 @@ class Helpers {
     final response = await rootBundle.loadString("assets/json/$fileName");
     return json.decode(response);
   }
-/* 
+
+/*
   static String getFormatedDate(
     String? date, {
     String locale = "es",
@@ -302,40 +304,39 @@ class Helpers {
     )) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
     }
-  } */
-String getWeekCurrent() {
-  final now = DateTime.now();
-  // Obtén el día de la semana actual (0 = domingo, 1 = lunes, ..., 6 = sábado)
-  final currentDayOfWeek = now.weekday;
-  // Calcula la fecha del lunes de la semana actual
-  final startOfWeek = now.subtract(Duration(days: currentDayOfWeek - 1));
-  // Calcula la fecha del viernes de la semana actual
-  final endOfWeek = startOfWeek.add(Duration(days: 4));
-  final format = DateFormat('dd', 'es');
-  final monthFormat = DateFormat('MMM', 'es');
-  final startDayFormatted = format.format(startOfWeek);
-  final endDayFormatted = format.format(endOfWeek);
-  final monthFormatted = monthFormat.format(startOfWeek);
+  } 
+  */
 
-  return '$startDayFormatted - $endDayFormatted $monthFormatted.';
-}
+  String getWeekCurrent() {
+    final now = DateTime.now();
+    // Obtén el día de la semana actual (0 = domingo, 1 = lunes, ..., 6 = sábado)
+    final currentDayOfWeek = now.weekday;
+    // Calcula la fecha del lunes de la semana actual
+    final startOfWeek = now.subtract(Duration(days: currentDayOfWeek - 1));
+    // Calcula la fecha del viernes de la semana actual
+    final endOfWeek = startOfWeek.add(const Duration(days: 4));
+    final format = DateFormat('dd', 'es');
+    final monthFormat = DateFormat('MMM', 'es');
+    final startDayFormatted = format.format(startOfWeek);
+    final endDayFormatted = format.format(endOfWeek);
+    final monthFormatted = monthFormat.format(startOfWeek);
 
- String getDateLarge() {
-  final now = DateTime.now();
-  final format = DateFormat('EEEE dd \'de\' MMM.', 'es');
-  return format.format(now);
-}
-  // Definición de la función para mostrar el diálogo de tipos de marcación
-  void showTypesMarkingDialog(
-      BuildContext context, HomeController controller) {
+    return '$startDayFormatted - $endDayFormatted $monthFormatted.';
+  }
+
+  String getDateLarge() {
+    final now = DateTime.now();
+    final format = DateFormat('EEEE dd \'de\' MMM.', 'es');
+    return format.format(now);
+  }
+
+  void showTypesMarkingDialog(BuildContext context, HomeController controller) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Theme(
-            // Define un tema personalizado para el diálogo
             data: ThemeData(
-              // Establece el color de fondo deseado (por ejemplo, blanco)
-              dialogBackgroundColor: Colors.white,
+              dialogBackgroundColor: AppColors.backgroundColor,
             ),
             child: controller.isLoading.value
                 ? const Center(child: CircularProgressIndicator())
@@ -345,10 +346,9 @@ String getWeekCurrent() {
                       )
                     : AlertDialog(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Ajusta el radio según tus preferencias
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: AppColors.backgroundColor,
                         title: const Text('Seleccionar tipo de marcación'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -366,29 +366,33 @@ String getWeekCurrent() {
     ).then((selectedValue) {
       if (selectedValue != null) {
         controller.assistMarker(selectedValue);
-        Future.delayed(const Duration(seconds: 2), () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: Colors.white,
-                title: const Text('Información de asistencia'),
-                content: Text('${controller.statusMessageUserAssistance}'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Aceptar'),
-                  ),
-                ],
-              );
-            },
-          );
-        });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Obx(() => controller.isLoading.value
+                ? const Center(child: CircularProgressIndicator())
+                : controller.statusAssistance.value
+                    ? const AltMarcar()
+                    : AlertDialog(
+                        backgroundColor: AppColors.backgroundColor,
+                        title: const Text('Información de asistencia'),
+                        content:
+                            Text(controller.statusMessageUserAssistance.value),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      ));
+          },
+        );
       }
     });
   }
+
   static void showSnackBar(
     BuildContext context, {
     required String title,
