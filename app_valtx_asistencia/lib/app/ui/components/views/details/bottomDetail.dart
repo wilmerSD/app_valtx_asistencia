@@ -28,42 +28,49 @@ class BottomDetail extends StatelessWidget {
                 SizedBox(
                   //color: Colors.red,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: Obx(
-                    () {
-                     return controller.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : controller.responseDataMes.isEmpty
-                        ? Center(
-                            child: Text('${controller.statusMessageMonth}'),
-                          )
-                        : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: controller.responseDataMes.map((itemMonth) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${itemMonth.quantity}',
-                                  style: const TextStyle(
-                                    color: Color.fromRGBO(38, 52, 113, 1),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                                Text(
-                                  itemMonth.description!,
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                        );
-                      }
-  
-                  ),
+                  child: Obx(() {
+                    return controller.isLoading.value
+                        ? Center(child: CircularProgressIndicator())
+                        : controller.responseDataMes.isEmpty
+                            ? Center(
+                                child: Text('${controller.statusMessageMonth}'),
+                              )
+                            : ListView.separated(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.responseDataMes.length,
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(width: 25.0);
+                                },
+                                itemBuilder: (context, index) {
+                                  final itemMonth =
+                                      controller.responseDataMes[index];
+                                  /* Color circleColor =
+                                      getCircleColor(itemMonth.idValidation ?? 0); */
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${itemMonth.quantity}',
+                                        style: const TextStyle(
+                                          color: Color.fromRGBO(38, 52, 113, 1),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        itemMonth.description!,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                  }),
                 ),
               ],
             ));

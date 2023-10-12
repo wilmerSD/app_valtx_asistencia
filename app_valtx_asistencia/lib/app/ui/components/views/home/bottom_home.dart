@@ -33,12 +33,20 @@ class BottomHome extends StatelessWidget {
                                     child: Text(
                                         '${controller.statusMessageMonth}'),
                                   )
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: controller
-                                        .responseUserAssistanceMonth
-                                        .map((itemMonth) {
+                                : ListView.separated(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0, right: 15),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: controller
+                                        .responseUserAssistanceMonth.length,
+                                    separatorBuilder: (context, index) {
+                                      return const SizedBox(width: 25.0);
+                                    },
+                                    itemBuilder: (context, index) {
+                                      final itemMonth = controller
+                                          .responseUserAssistanceMonth[index];
+                                      /* Color circleColor =
+                                      getCircleColor(itemMonth.idValidation ?? 0); */
                                       return Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -61,7 +69,7 @@ class BottomHome extends StatelessWidget {
                                           ),
                                         ],
                                       );
-                                    }).toList(),
+                                    },
                                   );
                       },
                     ),

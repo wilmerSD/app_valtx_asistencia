@@ -21,70 +21,75 @@ class AssistanceDayUser extends StatelessWidget {
                             child: Text('${controller.statusMessageDay}'),
                           )
                         : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
                             children: [
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children:
-                                    controller.responseDataDia.map((itemdia) {
-                                  Color circleColordia =
-                                      getCircleColor(itemdia.idValidation!);
-                                  return Row(
-                                    children: [
-                                      Container(
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: circleColordia,
+                              Expanded(
+                                child: ListView.separated(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  /* scrollDirection: Axis.horizontal, */
+                                  itemCount: controller.responseDataDia.length,
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(height: 20.0);
+                                  },
+                                  itemBuilder: (context, index) {
+                                    final itemDay =
+                                        controller.responseDataDia[index];
+                                    Color circleColordia =
+                                        getCircleColor(itemDay.idValidation!);
+                                    /* Color circleColor =
+                                    getCircleColor(itemMonth.idValidation ?? 0); */
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: circleColordia,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            Text(
+                                              itemDay.time!,
+                                              style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Text(
-                                        itemdia.time!,
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children:
-                                    controller.responseDataDia.map((itemdia) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Text(
-                                        itemdia.typesMarking!,
-                                        style: const TextStyle(
-                                          color: Color.fromRGBO(38, 52, 113, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      const Text(
-                                        'Sin observaciones',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              itemDay.typesMarking!,
+                                              style: const TextStyle(
+                                                color: Color.fromRGBO(
+                                                    38, 52, 113, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            const Text(
+                                              'Sin observaciones',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 width: 50,

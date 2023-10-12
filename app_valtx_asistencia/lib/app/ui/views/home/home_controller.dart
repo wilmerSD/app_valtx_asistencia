@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:app_valtx_asistencia/app/local/storage_service.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_user_information_model.dart';
 import 'package:app_valtx_asistencia/app/models/response/response_assistances_month_user_model.dart';
@@ -5,6 +6,7 @@ import 'package:app_valtx_asistencia/app/models/response/response_assistances_we
 import 'package:app_valtx_asistencia/app/models/response/response_register_marking_user_model.dart';
 import 'package:app_valtx_asistencia/app/models/response/response_types_assistances_model.dart';
 import 'package:app_valtx_asistencia/app/models/response/response_user_information_model.dart';
+import 'package:app_valtx_asistencia/app/repositories/types_validations_repository.dart';
 import 'package:app_valtx_asistencia/core/helpers/keys.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_id_user_model.dart';
 import 'package:app_valtx_asistencia/app/models/request/request_marking_user_model.dart';
@@ -25,6 +27,7 @@ class HomeController extends GetxController {
   void onInit() async {
     await _getinformationUser();
     await _getTypesMarking();
+    await _typesValidationsuser();
     await _getAssistancesMonthUser();
     await _getAssistancesWeekhUser();
     await _checkLocationPermission();
@@ -55,6 +58,7 @@ class HomeController extends GetxController {
       Get.find<AssistanceMonthUserRepository>();
   final _registerMarkingUser = Get.find<RegisterMarkingUserRepository>();
   final _typesAssistances = Get.find<TypesAssistancesUserRepository>();
+  final _typesValidationsRepository = Get.find<TypesValidationsRepository>();
 
   //Variables
   var responseUserInformation = DataUser().obs;
@@ -63,6 +67,7 @@ class HomeController extends GetxController {
   var statusMessageUserInformation = ''.obs;
   var statusMessageWeek = ''.obs;
   var statusMessageMonth = ''.obs;
+  var statusAssistance = true.obs;
   var responseUserAssistanceWeek = <DatumWeek>[].obs;
   var responseUserAssistanceMonth = <DatumMonth>[].obs;
   var responseUserAssistance = <DataMark>[].obs;
@@ -77,6 +82,7 @@ class HomeController extends GetxController {
   double latitude = 0.0;
   double longitude = 0.0;
   RxString nameLocation = "Obteniendo ubicación...".obs;
+
   //Functions
   //traer información del usuario
   _getinformationUser() async {
@@ -111,7 +117,20 @@ class HomeController extends GetxController {
     }
   }
 
-  // //Asistencias del mes
+  //Tipos de validacion
+  _typesValidationsuser() async {
+    isLoading.value = true;
+    final response = await _typesValidationsRepository.getTypesValidations();
+    isLoading.value = false;
+    if (!response.success) {
+      print("error: ${response.statusMessage}");
+      return;
+    }
+    await StorageService.set(
+        key: Keys.kTypesValidation, value: json.encode(response.toJson()));
+  }
+
+  //Asistencia del mes
   _getAssistancesMonthUser() async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
@@ -121,8 +140,17 @@ class HomeController extends GetxController {
       ),
     );
     isLoading.value = false;
-    responseUserAssistanceMonth.assignAll(response.data ?? []);
-    statusMessageMonth.value = response.statusMessage;
+    await StorageService.set(
+        key: Keys.kAssistancesMonthUser, value: json.encode(response.toJson()));
+    final storedAssistancesMonthUser =
+        await StorageService.get(Keys.kAssistancesMonthUser);
+    final decodedAssistancesMonthUser = json.decode(storedAssistancesMonthUser);
+    final decodedAssistancesMonthUserList =
+        (decodedAssistancesMonthUser['data'] as List)
+            .map((item) => DatumMonth.fromJson(item))
+            .toList();
+    responseUserAssistanceMonth.assignAll(decodedAssistancesMonthUserList);
+    statusMessageMonth.value = decodedAssistancesMonthUser['status_message'];
     if (!response.success) {
       print("error: ${response.statusMessage}");
       return;
@@ -160,6 +188,7 @@ class HomeController extends GetxController {
     );
     isLoading.value = false;
     responseUserAssistance.assign(response.data);
+    statusAssistance.value = response.success;
     statusMessageUserAssistance.value = response.statusMessage;
     if (!response.success) {
       print("error: ${response.statusMessage}");

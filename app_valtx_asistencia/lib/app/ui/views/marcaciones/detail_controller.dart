@@ -4,20 +4,18 @@ import 'package:app_valtx_asistencia/app/models/request/request_id_user_model.da
 import 'package:app_valtx_asistencia/app/models/response/response_assistances_day_user_model.dart';
 import 'package:app_valtx_asistencia/app/models/response/response_assistances_month_user_model.dart';
 import 'package:app_valtx_asistencia/app/repositories/asisstances_day_user_repository.dart';
-import 'package:app_valtx_asistencia/app/repositories/asisstances_month_user_repository.dart';
 import 'package:app_valtx_asistencia/core/helpers/keys.dart';
 import 'package:app_valtx_asistencia/app/models/response/response_types_validations_model.dart';
-import 'package:app_valtx_asistencia/app/repositories/types_validations_repository.dart';
-
 import 'package:get/get.dart';
 
 class DetailController extends GetxController {
+  bool isFirstTime = true;
   @override
   void onInit() {
     _typesValidationsuser();
     _assistancesDayUser();
     _assistancesMonthUser();
-    
+
     super.onInit();
   }
 
@@ -32,9 +30,9 @@ class DetailController extends GetxController {
   }
 
   //Instances
-  final _typesValidationsRepository = Get.find<TypesValidationsRepository>();
-  final _assistancesMonthUserRepository =
-      Get.find<AssistanceMonthUserRepository>();
+  /* final _typesValidationsRepository = Get.find<TypesValidationsRepository>(); */
+/*   final _assistancesMonthUserRepository =
+      Get.find<AssistanceMonthUserRepository>(); */
   final _assistancesDayUserRepository = Get.find<AssistanceDayUserRepository>();
 
   //variables
@@ -44,44 +42,42 @@ class DetailController extends GetxController {
   var statusMessageDay = ''.obs;
   var statusMessageMonth = ''.obs;
   RxBool isLoading = false.obs;
-  
 
   //Funciones
   //Tipos de validacion
   void _typesValidationsuser() async {
     isLoading.value = true;
-    final response = await _typesValidationsRepository.getTypesValidations();
-    responseTypesValidations.assignAll((response.data));
-    isLoading.value = false;
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
-    }
+    final storedTypesValidation =
+        await StorageService.get(Keys.kTypesValidation);
+    final decodedTypesValidation = json.decode(storedTypesValidation);
+    final typesValidationList = (decodedTypesValidation['data'] as List)
+        .map((item) => Datum.fromJson(item))
+        .toList();
+    responseTypesValidations.assignAll(typesValidationList);
   }
 
   //Asistencias del mes de usuario
   void _assistancesMonthUser() async {
     isLoading.value = true;
-    String Iduser = await StorageService.get(Keys.kIdUser);
-    final response = await _assistancesMonthUserRepository.getAssistancesMonth(
-      RequestIdUserModel(idUser: int.parse(Iduser),),
-    );
-    isLoading.value = false;
-    responseDataMes.assignAll(response.data ?? []);
-    statusMessageMonth.value = response.statusMessage;
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
-    }
+    final storedAssistancesMonthUser =
+        await StorageService.get(Keys.kAssistancesMonthUser);
+    final decodedAssistancesMonthUser = json.decode(storedAssistancesMonthUser);
+    final decodedAssistancesMonthUserList =
+        (decodedAssistancesMonthUser['data'] as List)
+            .map((item) => DatumMonth.fromJson(item))
+            .toList();
+    responseDataMes.assignAll(decodedAssistancesMonthUserList);
+    statusMessageMonth.value = decodedAssistancesMonthUser['status_message'];
   }
-
 
   //Asistencias del dia de usuario
   void _assistancesDayUser() async {
     isLoading.value = true;
     String Iduser = await StorageService.get(Keys.kIdUser);
     final response = await _assistancesDayUserRepository.getAssistancesDay(
-      RequestIdUserModel(idUser: int.parse(Iduser),),
+      RequestIdUserModel(
+        idUser: int.parse(Iduser),
+      ),
     );
     isLoading.value = false;
     responseDataDia.assignAll(response.data ?? []);

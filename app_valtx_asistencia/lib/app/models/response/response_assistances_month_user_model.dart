@@ -26,12 +26,12 @@ class ResponseAssistancesMonthUserModel {
                 json["data"].map((x) => DatumMonth.fromJson(x))),
       );
 
-  /*  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "success": success,
         "status_code": statusCode,
         "status_message": statusMessage,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    }; */
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
 }
 
 class DatumMonth {
@@ -54,10 +54,10 @@ class DatumMonth {
         quantity: json["quantity"],
       );
 
-  /* Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "idUser": idUser,
         "idValidation": idValidation,
         "description": description,
         "quantity": quantity,
-    }; */
+      };
 }

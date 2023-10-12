@@ -1,5 +1,4 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
-import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -27,8 +26,9 @@ class UserInformation extends StatelessWidget {
                   : ListTile(
                       leading: const CircleAvatar(
                         backgroundColor: Color.fromRGBO(38, 52, 113, 1),
-                            radius: 25,
-                            child: Icon(Icons.person, color: Colors.white,size:30),
+                        radius: 25,
+                        child:
+                            Icon(Icons.person, color: Colors.white, size: 30),
                       ),
                       title: Text(
                           "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}"),
@@ -38,7 +38,12 @@ class UserInformation extends StatelessWidget {
                             Iconsax.location,
                             color: Color.fromRGBO(38, 52, 113, 1),
                           ),
-                          Text(controller.nameLocation.value),
+                          Flexible(
+                            child: Text(
+                              controller.nameLocation.value,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ],
                       ),
                       trailing: GestureDetector(

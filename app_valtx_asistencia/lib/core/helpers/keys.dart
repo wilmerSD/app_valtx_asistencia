@@ -3,5 +3,6 @@ class Keys {
   static const kIdUser = "kIdUser";
   static const kUserName = "kUserName";
   static const kPassword = "kPassword";
-
+  static const kTypesValidation = "kTypesValidation";
+  static const kAssistancesMonthUser = "kAssistancesMonthUser";
 }
