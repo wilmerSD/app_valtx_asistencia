@@ -1,4 +1,4 @@
-import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar_ok.dart';
 import 'package:flutter/material.dart';
 
 class BtnTypeMarcar extends StatelessWidget {
@@ -53,6 +53,6 @@ class BtnTypeMarcar extends StatelessWidget {
   }
 
   void _showAlertDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) => AltMarcar());
+    showDialog(context: context, builder: (context) => AltMarcarOk());
   }
 }

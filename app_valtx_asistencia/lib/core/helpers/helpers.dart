@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar.dart';
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar_bad.dart';
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar_ok.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/constant.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
@@ -372,21 +373,8 @@ class Helpers {
             return Obx(() => controller.isLoading.value
                 ? const Center(child: CircularProgressIndicator())
                 : controller.statusAssistance.value
-                    ? const AltMarcar()
-                    : AlertDialog(
-                        backgroundColor: AppColors.backgroundColor,
-                        title: const Text('Información de asistencia'),
-                        content:
-                            Text(controller.statusMessageUserAssistance.value),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Aceptar'),
-                          ),
-                        ],
-                      ));
+                    ? const AltMarcarOk()
+                    :const AltMarcarBad());
           },
         );
       }
