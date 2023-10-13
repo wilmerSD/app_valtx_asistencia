@@ -1,6 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/components/buttons/btn_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/dashed_line.dart';
-import 'package:app_valtx_asistencia/app/ui/components/views/home/Contenido_week.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/home/content_week_home.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/appBar_home.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/bottom_home.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/map_view.dart';
@@ -26,7 +26,7 @@ class HomeView extends StatelessWidget {
                     const AppBarHome(),
                     Expanded(child: Container()),
                     //Asistencias de la semana
-                    const ContenidoWeek(),
+                    const ContentWeekHome(),
                     const SizedBox(
                       height: 10.0,
                     ),

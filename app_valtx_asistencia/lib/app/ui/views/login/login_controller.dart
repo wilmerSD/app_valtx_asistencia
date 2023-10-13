@@ -47,7 +47,6 @@ class LoginController extends GetxController {
       if (!response.success) {
         isVisible.value = true;
         Get.forceAppUpdate();
-        /* print("error: ${response.statusMessage}"); */
         return;
       }
 
