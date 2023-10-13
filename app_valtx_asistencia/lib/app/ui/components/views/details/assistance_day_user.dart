@@ -67,6 +67,7 @@ class AssistanceDayUser extends StatelessWidget {
                                           ],
                                         ),
                                         Column(
+                                          crossAxisAlignment:CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               itemDay.typesMarking!,

@@ -11,7 +11,7 @@ class AuthenticationProvider {
     RequestAuthenticationModel request,
   ) async {
     final response = await _dioClient.post(
-      path: "/api/auth/login",
+      path: "/api/auth/login1",
       bodyRaw: request.toMap(),
     );
     return ResponseAuthenticationModel.fromJson(response);

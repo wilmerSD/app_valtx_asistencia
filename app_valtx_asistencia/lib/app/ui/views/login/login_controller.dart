@@ -60,10 +60,14 @@ class LoginController extends GetxController {
       //Ir a nueva ruta y eliminar de memoria controllers existentes
       Get.offNamed(AppRoutesName.HOME);
     } catch (error) {
+      isLoading.value = false;
+      isVisible.value = true;
       if (error is DioException) {
         print('ERROR: ${error.response?.data['message']}');
+        messageError.value='Error En el servidor';
       } else {
-        print('Error de conexión');
+         messageError.value='Error de conexiónnnnnnnnnnnnn';
+        print('Error de conexiónnnnnnnnnnnnn');
       }
     }
   }
