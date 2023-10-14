@@ -1,3 +1,4 @@
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/assistance_day_user.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/bottomDetail.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/calendar.dart';
@@ -26,21 +27,33 @@ class DetailView extends StatelessWidget {
                         fontSize: 24,
                         fontWeight: FontWeight.bold)),
               ),
-              body: const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  //Calendario
-                  Calendar(),
-                  //Tipos de validación
-                  TypesValidations(),
-                  //Fecha de hoy
-                  DateToday(),
-                  //Marcaciones del dia
-                  AssistanceDayUser(),
-                  //faltas o tardanzas del mes
-                  BottomDetail(),
-                ],
-              ),
+              body: Stack(children: [
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    //Calendario
+                    Calendar(),
+                    //Tipos de validación
+                    TypesValidations(),
+                    //Fecha de hoy
+                    DateToday(),
+                    //Marcaciones del dia
+                    AssistanceDayUser(),
+                    //faltas o tardanzas del mes
+                    BottomDetail(),
+                  ],
+                ),
+                Obx(
+                  () => AltError(
+                      textError: controller.messageError.value,
+                      isVisible: controller.isVisible.value,
+                      isLoading: false,
+                      OnTap: () {
+                        controller.messageError.value = "";
+                        controller.isVisible.value = false;
+                      }),
+                )
+              ]),
             ));
   }
 }

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class SplashController extends GetxController {
   @override
   void onInit() {
-    _initialize2();
+    _initialize();
     super.onInit();
   }
 
@@ -34,7 +34,7 @@ class SplashController extends GetxController {
 
   //Function
 
-  void _initialize2() async {
+  void _initialize() async {
     final userName = await StorageService.get(Keys.kUserName);
     final password = await StorageService.get(Keys.kPassword);
 

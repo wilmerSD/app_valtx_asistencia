@@ -30,9 +30,6 @@ class DetailController extends GetxController {
   }
 
   //Instances
-  /* final _typesValidationsRepository = Get.find<TypesValidationsRepository>(); */
-/*   final _assistancesMonthUserRepository =
-      Get.find<AssistanceMonthUserRepository>(); */
   final _assistancesDayUserRepository = Get.find<AssistanceDayUserRepository>();
 
   //variables
@@ -41,7 +38,9 @@ class DetailController extends GetxController {
   var responseDataMes = <DatumMonth>[].obs;
   var statusMessageDay = ''.obs;
   var statusMessageMonth = ''.obs;
+  RxString messageError = RxString("");
   RxBool isLoading = false.obs;
+  RxBool isVisible = false.obs;
 
   //Funciones
   //Tipos de validacion
@@ -72,19 +71,27 @@ class DetailController extends GetxController {
 
   //Asistencias del dia de usuario
   void _assistancesDayUser() async {
-    isLoading.value = true;
-    String Iduser = await StorageService.get(Keys.kIdUser);
-    final response = await _assistancesDayUserRepository.getAssistancesDay(
-      RequestIdUserModel(
-        idUser: int.parse(Iduser),
-      ),
-    );
     isLoading.value = false;
-    responseDataDia.assignAll(response.data ?? []);
-    statusMessageDay.value = response.statusMessage;
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
+    try {
+      isLoading.value = true;
+      String Iduser = await StorageService.get(Keys.kIdUser);
+      final response = await _assistancesDayUserRepository.getAssistancesDay(
+        RequestIdUserModel(
+          idUser: int.parse(Iduser),
+        ),
+      );
+      isLoading.value = false;
+      responseDataDia.assignAll(response.data ?? []);
+      statusMessageDay.value = response.statusMessage;
+      if (!response.success) {
+        print("error: ${response.statusMessage}");
+        return;
+      }
+    } catch (error) {
+      isLoading.value = false;
+      isVisible.value = true;
+      messageError.value =
+          'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
     }
   }
 }
