@@ -5,6 +5,7 @@ import 'package:app_valtx_asistencia/app/ui/components/views/details/calendar.da
 import 'package:app_valtx_asistencia/app/ui/components/date_today.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/types_validations.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,11 +20,11 @@ class DetailView extends StatelessWidget {
               appBar: AppBar(
                 toolbarHeight: MediaQuery.of(context).size.height * 0.08,
                 elevation: 0.18,
-                shadowColor: Colors.grey,
-                backgroundColor: Colors.white,
+                shadowColor: AppColors.grayLight,
+                backgroundColor: AppColors.backgroundColor,
                 title: const Text('Mis marcaciones',
                     style: TextStyle(
-                        color: Color.fromRGBO(38, 52, 113, 1),
+                        color: AppColors.blueDark,
                         fontSize: 24,
                         fontWeight: FontWeight.bold)),
               ),

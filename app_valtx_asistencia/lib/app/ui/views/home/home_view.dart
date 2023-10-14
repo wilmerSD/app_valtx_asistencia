@@ -7,6 +7,7 @@ import 'package:app_valtx_asistencia/app/ui/components/views/home/map_view.dart'
 import 'package:app_valtx_asistencia/app/ui/components/views/home/user_information.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +36,7 @@ class HomeView extends StatelessWidget {
                     DashedLine(
                       dashWidth: 5.0,
                       dashGap: 5.0,
-                      color: Colors.grey,
+                      color: AppColors.grayLight,
                       width: double.infinity,
                       height: 1.0,
                       margin: const EdgeInsets.only(left: 10.0, right: 15.0),
@@ -49,17 +50,6 @@ class HomeView extends StatelessWidget {
                         controller.getNameLocation();
                       },
                       title: 'Marcar',
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 244, 129, 22),
-                          Color.fromARGB(255, 255, 87, 34),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp,
-                      ),
-                      sombra: const Color.fromARGB(255, 244, 129, 22),
                     ),
                     const SizedBox(
                       height: 10.0,

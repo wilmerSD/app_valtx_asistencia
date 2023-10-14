@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -18,17 +19,17 @@ class UserInformation extends StatelessWidget {
                 topRight: Radius.circular(10.0),
                 topLeft: Radius.circular(10.0),
               ),
-              color: Colors.white,
+              color: AppColors.backgroundColor,
             ),
             child: Obx(() {
               return controller.isLoadingUser.value
                   ? const Center(child: CircularProgressIndicator())
                   : ListTile(
                       leading: const CircleAvatar(
-                        backgroundColor: Color.fromRGBO(38, 52, 113, 1),
+                        backgroundColor: AppColors.blueDark,
                         radius: 25,
                         child:
-                            Icon(Icons.person, color: Colors.white, size: 30),
+                            Icon(Icons.person, color: AppColors.backgroundColor, size: 30),
                       ),
                       title: Text(
                           "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}"),
@@ -36,7 +37,7 @@ class UserInformation extends StatelessWidget {
                         children: [
                           const Icon(
                             Iconsax.location,
-                            color: Color.fromRGBO(38, 52, 113, 1),
+                            color: AppColors.blueDark,
                           ),
                           Flexible(
                             child: Text(
@@ -52,7 +53,7 @@ class UserInformation extends StatelessWidget {
                           width: 40,
                           height: 40,
                           decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 244, 129, 22),
+                            color: AppColors.degradedInitial,
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(

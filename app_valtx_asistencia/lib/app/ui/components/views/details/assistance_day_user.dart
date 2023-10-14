@@ -1,8 +1,10 @@
-import 'package:app_valtx_asistencia/app/ui/components/dashed_line.dart';
-import 'package:app_valtx_asistencia/app/ui/components/funtions/funtion_color_circle.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
+import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+final helpers = Helpers();
 
 class AssistanceDayUser extends StatelessWidget {
   const AssistanceDayUser({Key? key}) : super(key: key);
@@ -22,12 +24,10 @@ class AssistanceDayUser extends StatelessWidget {
                           )
                         : Row(
                             mainAxisSize: MainAxisSize.max,
-                            /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
                             children: [
                               Expanded(
                                 child: ListView.separated(
                                   padding: const EdgeInsets.only(top: 10),
-                                  /* scrollDirection: Axis.horizontal, */
                                   itemCount: controller.responseDataDia.length,
                                   separatorBuilder: (context, index) {
                                     return const SizedBox(height: 20.0);
@@ -35,10 +35,8 @@ class AssistanceDayUser extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     final itemDay =
                                         controller.responseDataDia[index];
-                                    Color circleColordia =
-                                        getCircleColor(itemDay.idValidation!);
-                                    /* Color circleColor =
-                                    getCircleColor(itemMonth.idValidation ?? 0); */
+                                    Color circleColordia = helpers
+                                        .getCircleColor(itemDay.idValidation!);
                                     return Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -59,7 +57,7 @@ class AssistanceDayUser extends StatelessWidget {
                                             Text(
                                               itemDay.time!,
                                               style: const TextStyle(
-                                                color: Colors.grey,
+                                                color: AppColors.grayLight,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16,
                                               ),
@@ -67,13 +65,13 @@ class AssistanceDayUser extends StatelessWidget {
                                           ],
                                         ),
                                         Column(
-                                          crossAxisAlignment:CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               itemDay.typesMarking!,
                                               style: const TextStyle(
-                                                color: Color.fromRGBO(
-                                                    38, 52, 113, 1),
+                                                color: AppColors.blueDark,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                               ),
@@ -81,7 +79,7 @@ class AssistanceDayUser extends StatelessWidget {
                                             const Text(
                                               'Sin observaciones',
                                               style: TextStyle(
-                                                color: Colors.grey,
+                                                color: AppColors.grayLight,
                                                 fontSize: 14,
                                               ),
                                             ),

@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,7 @@ class AltMarcarOk extends StatelessWidget {
                           backgroundColor: Colors.white,
                           child: Icon(
                             Icons.check_circle_outline,
-                            color: Color.fromARGB(255, 76, 201, 170),
+                            color: AppColors.logoRight,
                             size: 80.0,
                           ),
                         ),
@@ -42,7 +43,7 @@ class AltMarcarOk extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 20.0,
-                            color: Color.fromARGB(255, 3, 48, 120),
+                            color: AppColors.blueDark,
                             decoration: TextDecoration.none,
                           ),
                         ),
@@ -51,13 +52,13 @@ class AltMarcarOk extends StatelessWidget {
                           children: [
                             const Icon(
                               Icons.location_on_sharp,
-                              color: Color.fromARGB(255, 244, 129, 22),
+                              color: AppColors.degradedInitial,
                             ),
                             Text(
                               '${item.ubicacin}',
                               style: const TextStyle(
                                 fontSize: 14.0,
-                                color: Color.fromARGB(255, 3, 48, 120),
+                                color: AppColors.blueDark,
                                 decoration: TextDecoration.none,
                               ),
                             ),
@@ -72,12 +73,12 @@ class AltMarcarOk extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.4,
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 3, 48, 120),
+                                color: AppColors.blueDark,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20.0)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color.fromARGB(137, 71, 70, 70),
+                                    color: AppColors.shadowButton,
                                     blurRadius: 5.0,
                                     offset: Offset(0, 3),
                                     spreadRadius: 0.0,
@@ -87,7 +88,7 @@ class AltMarcarOk extends StatelessWidget {
                               'Cerrar',
                               style: TextStyle(
                                   fontSize: 18.0,
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: AppColors.backgroundColor,
                                   decoration: TextDecoration.none),
                             ),
                           ),

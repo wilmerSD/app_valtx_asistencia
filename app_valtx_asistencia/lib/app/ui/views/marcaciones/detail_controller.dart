@@ -84,7 +84,6 @@ class DetailController extends GetxController {
       responseDataDia.assignAll(response.data ?? []);
       statusMessageDay.value = response.statusMessage;
       if (!response.success) {
-        print("error: ${response.statusMessage}");
         return;
       }
     } catch (error) {

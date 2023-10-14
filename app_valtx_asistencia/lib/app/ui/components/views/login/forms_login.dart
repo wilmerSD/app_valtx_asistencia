@@ -1,6 +1,7 @@
-import 'package:app_valtx_asistencia/app/ui/components/views/views_login/custom_input_field.dart';
-import 'package:app_valtx_asistencia/app/ui/components/views/views_login/text_login.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/login/custom_input_field.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/login/text_login.dart';
 import 'package:app_valtx_asistencia/core/helpers/validators.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FormsLogin extends StatelessWidget {
@@ -20,7 +21,7 @@ class FormsLogin extends StatelessWidget {
         const TextLogin(
             text: "Sistema de asistencia",
             size: 26.0,
-            colors: Color.fromARGB(255, 1, 2, 96),
+            colors: AppColors.blueDark,
             alignment: TextAlign.center),
         const SizedBox(
           height: 20.0,
@@ -35,10 +36,7 @@ class FormsLogin extends StatelessWidget {
             return "Email inválido";
           },
           onChanged:
-              onChangedUserName /* (value) {
-            controller.userName = value;
-          } */
-          ,
+              onChangedUserName,
         ),
         const SizedBox(
           height: 20.0,
@@ -53,10 +51,7 @@ class FormsLogin extends StatelessWidget {
             return "Constraseña inválida";
           },
           onChanged:
-              onChangedPassword /* (value) {
-            controller.password = value;
-          } */
-          ,
+              onChangedPassword,
         ),
         const SizedBox(
           height: 20.0,

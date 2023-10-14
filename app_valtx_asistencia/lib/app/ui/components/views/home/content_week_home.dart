@@ -1,8 +1,9 @@
-import 'package:app_valtx_asistencia/app/ui/components/funtions/funtion_color_circle.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+final helpers = Helpers();
 
 class ContentWeekHome extends StatelessWidget {
   const ContentWeekHome({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ class ContentWeekHome extends StatelessWidget {
                                   final item = controller
                                       .responseUserAssistanceWeek[index];
                                   Color circleColor =
-                                      getCircleColor(item.idValidation ?? 0);
+                                      helpers.getCircleColor(item.idValidation ?? 0);
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

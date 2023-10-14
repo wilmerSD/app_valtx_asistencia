@@ -1,6 +1,5 @@
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AltError extends StatelessWidget {
   const AltError({

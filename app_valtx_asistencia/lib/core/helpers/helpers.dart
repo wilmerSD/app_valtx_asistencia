@@ -307,6 +307,41 @@ class Helpers {
     }
   } 
   */
+  String getMonthName(int month) {
+    final monthNames = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Setiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
+    ];
+    return monthNames[month - 1]; // Restamos 1 porque los índices comienzan en 0
+  }
+   Color getCircleColor(int idValidacion) {
+    Color circleColor;
+    switch (idValidacion) {
+      case 1:
+        circleColor = AppColors.green;
+        break;
+      case 2:
+        circleColor = AppColors.yellow;
+        break;
+      case 3:
+        circleColor = AppColors.red;
+        break;
+      default:
+        circleColor = AppColors.grey;
+        break;
+    }
+    return circleColor;
+  }
 
   String getWeekCurrent() {
     final now = DateTime.now();

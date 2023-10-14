@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,12 +18,11 @@ class BottomHome extends StatelessWidget {
                   bottomLeft: Radius.circular(10.0),
                   bottomRight: Radius.circular(10.0),
                 ),
-                color: Colors.white,
+                color: AppColors.backgroundColor,
               ),
               child: Column(
                 children: [
                   SizedBox(
-                    //color: Colors.red,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Obx(
                       () {
@@ -54,8 +54,7 @@ class BottomHome extends StatelessWidget {
                                           Text(
                                             '${itemMonth.quantity}',
                                             style: const TextStyle(
-                                              color: Color.fromRGBO(
-                                                  38, 52, 113, 1),
+                                              color: AppColors.blueDark,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20,
                                             ),
@@ -63,7 +62,7 @@ class BottomHome extends StatelessWidget {
                                           Text(
                                             itemMonth.description!,
                                             style: const TextStyle(
-                                              color: Colors.grey,
+                                              color: AppColors.grayLight,
                                               fontSize: 14,
                                             ),
                                           ),

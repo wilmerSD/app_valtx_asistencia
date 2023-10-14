@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class AltMarcarBad extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.0),
                     ),
@@ -32,7 +33,7 @@ class AltMarcarBad extends StatelessWidget {
                           backgroundColor: Colors.white,
                           child: Icon(
                             Icons.cancel_outlined,
-                            color: Color.fromARGB(255, 243, 57, 0),
+                            color: AppColors.logoBad,
                             size: 80.0,
                           ),
                         ),
@@ -41,7 +42,7 @@ class AltMarcarBad extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 20.0,
-                            color: Color.fromARGB(255, 3, 48, 120),
+                            color: AppColors.blueDark,
                             decoration: TextDecoration.none,
                           ),
                         ),
@@ -54,12 +55,12 @@ class AltMarcarBad extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.4,
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 3, 48, 120),
+                                color: AppColors.blueDark,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20.0)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color.fromARGB(137, 71, 70, 70),
+                                    color: AppColors.shadowButton,
                                     blurRadius: 5.0,
                                     offset: Offset(0, 3),
                                     spreadRadius: 0.0,
@@ -69,7 +70,7 @@ class AltMarcarBad extends StatelessWidget {
                               'Cerrar',
                               style: TextStyle(
                                   fontSize: 18.0,
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: AppColors.backgroundColor,
                                   decoration: TextDecoration.none),
                             ),
                           ),

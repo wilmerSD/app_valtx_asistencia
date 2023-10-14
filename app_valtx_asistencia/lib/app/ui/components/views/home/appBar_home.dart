@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -21,7 +22,7 @@ class AppBarHome extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 40.0),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
+                      color: AppColors.backgroundColor,
                     ),
                     child: IconButton(
                       onPressed: () {
@@ -29,7 +30,7 @@ class AppBarHome extends StatelessWidget {
                       },
                       icon: const Icon(
                         Icons.menu,
-                        color: Color.fromRGBO(38, 52, 113, 1),
+                        color: AppColors.blueDark,
                       ),
                     ),
                   ),
@@ -39,7 +40,7 @@ class AppBarHome extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 40.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: Colors.white,
+                        color: AppColors.backgroundColor,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -47,24 +48,24 @@ class AppBarHome extends StatelessWidget {
                           const Text(
                             'Valtx',
                             style: TextStyle(
-                                color: Color.fromRGBO(38, 52, 113, 1),
+                                color: AppColors.blueDark,
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold),
-                          ),
+                          ), 
                           Text(
                             helpers.getDateLarge(),
-                            style:const TextStyle(color: Colors.grey),
+                            style:const TextStyle(color: AppColors.grayLight),
                           ),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.04,
                             width: MediaQuery.of(context).size.width * 0.1,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Color.fromARGB(57, 33, 149, 243),
+                              color: AppColors.contentNotification,
                             ),
                             child: const Icon(
                               Iconsax.notification,
-                              color: Color.fromRGBO(38, 52, 113, 1),
+                              color: AppColors.blueDark,
                             ),
                           ),
                         ],

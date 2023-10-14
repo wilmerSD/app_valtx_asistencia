@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,23 +15,22 @@ class BottomDetail extends StatelessWidget {
                     decoration: const BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black38,
-                      blurRadius: 9.0, // Radio de desenfoque
-                      spreadRadius: 0.6, // Extensión de la sombra
+                      color: AppColors.grayLight,
+                      blurRadius: 9.0, 
+                      spreadRadius: 0.6,
                       offset: Offset(0, -6),
                     ),
                   ],
                 )),
                 const Divider(
-                  color: Colors.white70,
+                  color: AppColors.backgroundColor,
                   height: 3.0,
                 ),
                 SizedBox(
-                  //color: Colors.red,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Obx(() {
                     return controller.isLoading.value
-                        ? Center(child: CircularProgressIndicator())
+                        ?const Center(child: CircularProgressIndicator())
                         : controller.responseDataMes.isEmpty
                             ? Center(
                                 child: Text('${controller.statusMessageMonth}'),
@@ -46,15 +46,13 @@ class BottomDetail extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final itemMonth =
                                       controller.responseDataMes[index];
-                                  /* Color circleColor =
-                                      getCircleColor(itemMonth.idValidation ?? 0); */
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         '${itemMonth.quantity}',
                                         style: const TextStyle(
-                                          color: Color.fromRGBO(38, 52, 113, 1),
+                                          color: AppColors.blueDark,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
@@ -62,7 +60,7 @@ class BottomDetail extends StatelessWidget {
                                       Text(
                                         itemMonth.description!,
                                         style: const TextStyle(
-                                          color: Colors.grey,
+                                          color: AppColors.grayLight,
                                           fontSize: 14,
                                         ),
                                       ),

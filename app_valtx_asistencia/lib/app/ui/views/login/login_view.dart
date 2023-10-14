@@ -1,7 +1,7 @@
 import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/app/ui/components/buttons/btn_marcar.dart';
-import 'package:app_valtx_asistencia/app/ui/components/views/views_login/forms_login.dart';
-import 'package:app_valtx_asistencia/app/ui/components/views/views_login/text_login.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/login/forms_login.dart';
+import 'package:app_valtx_asistencia/app/ui/components/views/login/text_login.dart';
 import 'package:app_valtx_asistencia/app/ui/views/login/login_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -60,17 +60,7 @@ class LoginView extends StatelessWidget {
                       BtnMarcar(
                           OnTap: controller.doAuth,
                           title: 'Iniciar sesión',
-                          gradient: const LinearGradient(
-                            colors: [
-                              AppColors.degradedInitial,
-                              AppColors.degradedEnd,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: [0.0, 1.0],
-                            tileMode: TileMode.clamp,
-                          ),
-                          sombra: AppColors.degradedInitial)
+                         )
                     ],
                   ),
                 ),

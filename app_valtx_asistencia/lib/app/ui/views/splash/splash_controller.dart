@@ -3,6 +3,7 @@ import 'package:app_valtx_asistencia/app/models/request/request_authentication_m
 import 'package:app_valtx_asistencia/app/repositories/authentication_repository.dart';
 import 'package:app_valtx_asistencia/core/helpers/keys.dart';
 import 'package:app_valtx_asistencia/routes/app_routes_name.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -33,38 +34,48 @@ class SplashController extends GetxController {
   RxBool isVisible = false.obs;
   RxString messageError = RxString("");
 
-  //TextEditingController
-
-  //Function
+  //Functions
 
   void _initialize() async {
-    final userName = await StorageService.get(Keys.kUserName);
-    final password = await StorageService.get(Keys.kPassword);
+    isLoading.value = true;
+    try{
+      final userName = await StorageService.get(Keys.kUserName);
+      final password = await StorageService.get(Keys.kPassword);
 
-    if (userName.isNotEmpty && password.isNotEmpty) {
-      final response = await _authenticationRepository.postAuthentication(
-        RequestAuthenticationModel(
-          username: userName,
-          password: password,
-        ),
-      );
-
-      if (response.success) {
-        await StorageService.set(
-            key: Keys.kTokenSesion, value: response.data!.token);
-        Future.delayed(
-          const Duration(milliseconds: 600),
-          () {
-            Get.offNamed(AppRoutesName.HOME);
-          },
+      if (userName.isNotEmpty && password.isNotEmpty) {
+        final response = await _authenticationRepository.postAuthentication(
+          RequestAuthenticationModel(
+            username: userName,
+            password: password,
+          ),
         );
+
+        if (response.success) {
+          await StorageService.set(
+              key: Keys.kTokenSesion, value: response.data!.token);
+          Future.delayed(
+            const Duration(milliseconds: 600),
+            () {
+              Get.offNamed(AppRoutesName.HOME);
+            },
+          );
+        } else {
+          Get.offNamed(AppRoutesName.LOGIN);
+        }
       } else {
-        Get.offNamed(AppRoutesName.LOGIN);
+        Future.delayed(const Duration(seconds: 1), () {
+          Get.offNamed(AppRoutesName.LOGIN);
+        });
       }
-    } else {
-      Future.delayed(const Duration(seconds: 1), () {
-        Get.offNamed(AppRoutesName.LOGIN);
-      });
+    }catch (error) {
+      isLoading.value = false;
+      isVisible.value = true;
+      if (error is DioException) {
+        messageError.value = 'ERROR: ${error.response?.data['message']}';
+      } else {
+        messageError.value =
+            'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
+      }
     }
   }
 }

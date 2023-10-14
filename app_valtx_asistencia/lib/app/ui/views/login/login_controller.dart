@@ -31,6 +31,7 @@ class LoginController extends GetxController {
   RxString messageError = RxString("");
   RxBool isLoading = false.obs;
   RxBool isVisible = false.obs;
+
   //Functions
   void doAuth() async {
     isLoading.value = true;
@@ -43,7 +44,6 @@ class LoginController extends GetxController {
       );
       isLoading.value = false;
       messageError.value = response.statusMessage;
-      print("mensaje: ${response.statusMessage}");
       if (!response.success) {
         isVisible.value = true;
         Get.forceAppUpdate();
@@ -55,15 +55,14 @@ class LoginController extends GetxController {
           key: Keys.kTokenSesion, value: response.data!.token);
       await StorageService.set(key: Keys.kUserName, value: userName);
       await StorageService.set(key: Keys.kPassword, value: password);
-      print("token: ${response.data!.token}");
+
       //Ir a nueva ruta y eliminar de memoria controllers existentes
       Get.offNamed(AppRoutesName.HOME);
     } catch (error) {
       isLoading.value = false;
       isVisible.value = true;
       if (error is DioException) {
-        print('ERROR: ${error.response?.data['message']}');
-        messageError.value = 'Error En el servidor';
+        messageError.value = 'ERROR: ${error.response?.data['message']}';
       } else {
         messageError.value =
             'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';

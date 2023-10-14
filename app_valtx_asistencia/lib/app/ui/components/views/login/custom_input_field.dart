@@ -1,3 +1,4 @@
+import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -54,16 +55,16 @@ class _CustomInputFieldState extends State<CustomInputField> {
               },
               decoration: InputDecoration(
                 labelStyle:
-                    const TextStyle(color: Color.fromARGB(255, 195, 195, 196)),
+                    const TextStyle(color: AppColors.grayLight),
                 labelText: widget.label,
                 enabledBorder: const OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Color.fromARGB(255, 204, 204, 204)),
+                      BorderSide(color: AppColors.grayLight),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
                 focusedBorder: const OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Color.fromARGB(255, 148, 148, 149)),
+                      BorderSide(color: AppColors.grayDark),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
                 suffixIcon: widget.isPassword
@@ -82,7 +83,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             if (state.hasError)
               Text(
                 state.errorText!,
-                style:const TextStyle(color: Color.fromARGB(255, 203, 100, 40)),
+                style:const TextStyle(color: AppColors.red),
               )
           ],
         );
