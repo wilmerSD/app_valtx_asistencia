@@ -63,10 +63,10 @@ class LoginController extends GetxController {
       isVisible.value = true;
       if (error is DioException) {
         print('ERROR: ${error.response?.data['message']}');
-        messageError.value='Error En el servidor';
+        messageError.value = 'Error En el servidor';
       } else {
-         messageError.value='Error de conexiónnnnnnnnnnnnn';
-        print('Error de conexiónnnnnnnnnnnnn');
+        messageError.value =
+            'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
       }
     }
   }

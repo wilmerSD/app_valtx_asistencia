@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Marcaciones',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor:AppColors.blueDark),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blueDark),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
