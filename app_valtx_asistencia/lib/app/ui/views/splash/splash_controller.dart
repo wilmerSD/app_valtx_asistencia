@@ -27,8 +27,11 @@ class SplashController extends GetxController {
   final _authenticationRepository = Get.find<AuthenticationRepository>();
 
   //Variable
-  String userName = "wilmer@gmail.com";
-  String password = "123456";
+  String userName = "";
+  String password = "";
+  RxBool isLoading = false.obs;
+  RxBool isVisible = false.obs;
+  RxString messageError = RxString("");
 
   //TextEditingController
 
