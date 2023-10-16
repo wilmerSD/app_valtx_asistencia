@@ -70,14 +70,13 @@ class HomeController extends GetxController {
   var statusAssistance = true.obs;
   var responseUserAssistanceWeek = <DatumWeek>[].obs;
   var responseUserAssistanceMonth = <DatumMonth>[].obs;
-  var responseUserAssistance = <DataMark>[].obs;
+  var responseUserAssistance = DataMark().obs;
   var responseAssistance = ''.obs;
   var statusMessageUserAssistance = ''.obs;
-  final LatLng initialPosition =
-      LatLng(0, 0); // Ubicación inicial en latitud y longitud.
-  final Rx<LatLng> currentLocation =
-      Rx<LatLng>(LatLng(0, 0 /* -12.086518686148704, -76.9908721797316 */));
+  final Rx<LatLng> currentLocation = Rx<LatLng>(const LatLng(0, 0));
   RxBool isLoading = false.obs;
+  RxString messageError = RxString("");
+  RxBool isVisible = false.obs;
   RxBool isLoadingUser = false.obs;
   double latitude = 0.0;
   double longitude = 0.0;
@@ -159,43 +158,57 @@ class HomeController extends GetxController {
 
   //Asistencia de la semana
   _getAssistancesWeekhUser() async {
-    String Iduser = await StorageService.get(Keys.kIdUser);
     isLoading.value = true;
-    final response = await _assistancesWeekUserRepository.getAssistancesWeek(
-      RequestIdUserModel(
-        idUser: int.parse(Iduser),
-      ),
-    );
-    isLoading.value = false;
-    responseUserAssistanceWeek.assignAll(response.data ?? []);
-    statusMessageWeek.value = response.statusMessage;
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
+    try{
+      String Iduser = await StorageService.get(Keys.kIdUser);
+      isLoading.value = true;
+      final response = await _assistancesWeekUserRepository.getAssistancesWeek(
+        RequestIdUserModel(
+          idUser: int.parse(Iduser),
+        ),
+      );
+      isLoading.value = false;
+      responseUserAssistanceWeek.assignAll(response.data ?? []);
+      statusMessageWeek.value = response.statusMessage;
+      if (!response.success) {
+        print("error: ${response.statusMessage}");
+        return;
+      }
+    }catch (error) {
+      isLoading.value = false;
+      isVisible.value = true;
+      messageError.value =
+          'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
     }
   }
 
   //Registrar asistencia
   assistMarker(int selectedValue) async {
-    isLoading.value = true;
-    String Iduser = await StorageService.get(Keys.kIdUser);
-    final response = await _registerMarkingUser.postRegisterMarking(
-      RequestMarkingUserModel(
-          idUser: int.parse(Iduser),
-          idTypesMarking: selectedValue,
-          latitude: latitude,
-          longitude: longitude),
-    );
-    isLoading.value = false;
-    responseUserAssistance.assign(response.data);
-    statusAssistance.value = response.success;
-    statusMessageUserAssistance.value = response.statusMessage;
-    if (!response.success) {
-      print("error: ${response.statusMessage}");
-      return;
+    try{
+      isLoading.value = true;
+      String Iduser = await StorageService.get(Keys.kIdUser);
+      final response = await _registerMarkingUser.postRegisterMarking(
+        RequestMarkingUserModel(
+            idUser: int.parse(Iduser),
+            idTypesMarking: selectedValue,
+            latitude: latitude,
+            longitude: longitude),
+      );
+      isLoading.value = false;
+      statusAssistance.value = response.success;
+      statusMessageUserAssistance.value = response.statusMessage;
+      if (!response.success) {
+        print("error: ${response.statusMessage}");
+        return;
+      }
+      _getAssistancesMonthUser();
+      _getAssistancesWeekhUser();
+    }catch (error) {
+      isLoading.value = false;
+      isVisible.value = true;
+      messageError.value =
+          'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
     }
-    _getAssistancesMonthUser();
-    _getAssistancesWeekhUser();
   }
 
   Future<void> _checkLocationPermission() async {
@@ -203,8 +216,8 @@ class HomeController extends GetxController {
     if (hasPermission == locations.PermissionStatus.denied) {
       final requestPermission = await location.requestPermission();
       if (requestPermission != locations.PermissionStatus.granted) {
-        // El usuario ha denegado los permisos de ubicación.
-        // Puedes mostrar un mensaje de error o solicitar permisos nuevamente.
+        //ha denegado los permisos de ubicación.
+        // mensaje de error o solicitar permisos nuevamente.
         return;
       }
     }
@@ -218,10 +231,7 @@ class HomeController extends GetxController {
     currentLocation.value = LatLng(position.latitude, position.longitude);
     latitude = position.latitude;
     longitude = position.longitude;
-    print('${latitude}');
-    print('${longitude}');
     update();
-    /* Get.forceAppUpdate(); */
   }
 
   void navigateToScreen() {
@@ -229,10 +239,8 @@ class HomeController extends GetxController {
   }
 
   getNameLocation() async {
-    /* isLoading.value = true; */
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
-    /* isLoading.value = false; */
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks[0];
       String streetName = placemark.street ?? '';

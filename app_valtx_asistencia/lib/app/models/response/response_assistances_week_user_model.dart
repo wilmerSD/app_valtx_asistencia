@@ -14,9 +14,9 @@ class ResponseAssistancesWeekUserModel {
   factory ResponseAssistancesWeekUserModel.fromJson(
           Map<String, dynamic> json) =>
       ResponseAssistancesWeekUserModel(
-        success: json["success"],
-        statusCode: json["status_code"],
-        statusMessage: json["status_message"],
+        success: json["success"]??'',
+        statusCode: json["status_code"]??'',
+        statusMessage: json["status_message"]??'',
         /* data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))), */
         data: (json["data"] != null &&
                 json["data"] is Map &&

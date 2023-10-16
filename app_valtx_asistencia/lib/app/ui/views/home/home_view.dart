@@ -1,3 +1,4 @@
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/app/ui/components/buttons/btn_marcar.dart';
 import 'package:app_valtx_asistencia/app/ui/components/dashed_line.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/home/content_week_home.dart';
@@ -55,7 +56,7 @@ class HomeView extends StatelessWidget {
                       height: 10.0,
                     ),
                   ],
-                )
+                ),
               ]),
             ));
   }

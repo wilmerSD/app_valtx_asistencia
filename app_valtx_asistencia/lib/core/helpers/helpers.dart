@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_error.dart';
 import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar_bad.dart';
 import 'package:app_valtx_asistencia/app/ui/components/alerts/alt_marcar_ok.dart';
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
@@ -322,9 +323,11 @@ class Helpers {
       'Noviembre',
       'Diciembre'
     ];
-    return monthNames[month - 1]; // Restamos 1 porque los índices comienzan en 0
+    return monthNames[
+        month - 1]; // Restamos 1 porque los índices comienzan en 0
   }
-   Color getCircleColor(int idValidacion) {
+
+  Color getCircleColor(int idValidacion) {
     Color circleColor;
     switch (idValidacion) {
       case 1:
@@ -407,9 +410,20 @@ class Helpers {
           builder: (BuildContext context) {
             return Obx(() => controller.isLoading.value
                 ? const Center(child: CircularProgressIndicator())
-                : controller.statusAssistance.value
-                    ? const AltMarcarOk()
-                    :const AltMarcarBad());
+                : controller.isVisible.value
+                    ? AltError(
+                        textError: controller.messageError.value,
+                        isVisible: controller.isVisible.value,
+                        isLoading: false,
+                        OnTap: () {
+                          controller.messageError.value = "";
+                          controller.isVisible.value = false;
+                        })
+                    : controller.statusAssistance.value
+                        ? Visibility(
+                          visible: controller.isVisible.value,
+                          child: const AltMarcarBad())
+                        : Visibility(visible: controller.isVisible.value,child: const AltMarcarOk()));
           },
         );
       }

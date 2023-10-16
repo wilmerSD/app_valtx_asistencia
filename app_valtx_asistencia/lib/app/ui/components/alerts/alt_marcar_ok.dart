@@ -11,7 +11,9 @@ class AltMarcarOk extends StatelessWidget {
 
     return GetBuilder<HomeController>(
         builder: (controller) => Obx(() {
-              final item = controller.responseUserAssistance[0];
+              final item = controller.responseUserAssistance;
+              String? registradoComo = item.value.registradoComo;
+              String? ubicacion = item.value.ubicacin;
               return Center(
                 child: Container(
                   margin: const EdgeInsets.only(
@@ -39,7 +41,7 @@ class AltMarcarOk extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Asistencia registrada como ${item.registradoComo}',
+                          registradoComo??'',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 20.0,
@@ -55,7 +57,7 @@ class AltMarcarOk extends StatelessWidget {
                               color: AppColors.degradedInitial,
                             ),
                             Text(
-                              '${item.ubicacin}',
+                              ubicacion??'',
                               style: const TextStyle(
                                 fontSize: 14.0,
                                 color: AppColors.blueDark,

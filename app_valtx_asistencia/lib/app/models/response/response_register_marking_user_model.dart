@@ -33,7 +33,7 @@ class DataMark {
   });
 
   factory DataMark.fromJson(Map<String, dynamic> json) => DataMark(
-        registradoComo: json["Registrado como"],
+        registradoComo: json["Registrado como"]??'',
         ubicacin: json["Ubicación"],
       );
 }
