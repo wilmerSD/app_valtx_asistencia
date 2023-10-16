@@ -1,6 +1,7 @@
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,11 +40,8 @@ class TypesValidations extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Text(
-                              item.description,
-                              style: const TextStyle(
-                                  fontSize: 14.0, color: AppColors.grayLight),
-                            ),
+                            Text(item.description,
+                                style: AppTextStyle(context).medium14()),
                           ],
                         );
                       },

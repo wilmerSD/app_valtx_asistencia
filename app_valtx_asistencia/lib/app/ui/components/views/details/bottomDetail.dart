@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class BottomDetail extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.grayLight,
-                      blurRadius: 9.0, 
+                      blurRadius: 9.0,
                       spreadRadius: 0.6,
                       offset: Offset(0, -6),
                     ),
@@ -30,7 +31,7 @@ class BottomDetail extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Obx(() {
                     return controller.isLoading.value
-                        ?const Center(child: CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : controller.responseDataMes.isEmpty
                             ? Center(
                                 child: Text('${controller.statusMessageMonth}'),
@@ -49,20 +50,12 @@ class BottomDetail extends StatelessWidget {
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        '${itemMonth.quantity}',
-                                        style: const TextStyle(
-                                          color: AppColors.blueDark,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
+                                      Text('${itemMonth.quantity}',
+                                          style:
+                                              AppTextStyle(context).extra20()),
                                       Text(
                                         itemMonth.description!,
-                                        style: const TextStyle(
-                                          color: AppColors.grayLight,
-                                          fontSize: 14,
-                                        ),
+                                        style: AppTextStyle(context).medium14(),
                                       ),
                                     ],
                                   );

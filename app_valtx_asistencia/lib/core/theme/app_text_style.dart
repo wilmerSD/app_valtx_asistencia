@@ -16,6 +16,22 @@ class AppTextStyle {
           .titleLarge!
           .copyWith(color: color, fontWeight: FontWeight.bold);
 
+  TextStyle titleButton({
+    Color color = AppColors.backgroundColor,
+  }) =>
+      Theme.of(context)
+          .textTheme
+          .titleLarge!
+          .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 18.0);
+
+  TextStyle textError({
+    Color color = AppColors.black,
+  }) =>
+      Theme.of(context)
+          .textTheme
+          .titleLarge!
+          .copyWith(color: color, fontWeight: FontWeight.w400, fontSize: 18.0);
+
   TextStyle bold24({double size = 24.0, Color color = Colors.white}) =>
       Theme.of(context)
           .textTheme
@@ -25,35 +41,8 @@ class AppTextStyle {
   TextStyle bold16({Color? color = AppColors.black}) => Theme.of(context)
       .textTheme
       .bodyMedium!
-      .copyWith(color: color, fontWeight: FontWeight.w700, fontSize: 16.sp);
+      .copyWith(color: color, fontWeight: FontWeight.w700, fontSize: 16.0);
   //-----------------------------
-
-  TextStyle normal12({
-    Color color = AppColors.grayLight,
-  }) =>
-      Theme.of(context)
-          .textTheme
-          .titleMedium!
-          .copyWith(color: color, fontSize: 12.0);
-
-  TextStyle semi12({
-    Color color = AppColors.grayLight,
-  }) =>
-      Theme.of(context)
-          .textTheme
-          .titleLarge!
-          .copyWith(color: color, fontWeight: FontWeight.w500, fontSize: 12.0);
-
-  TextStyle semi16({Color color = AppColors.grayLight}) => Theme.of(context)
-      .textTheme
-      .subtitle1!
-      .copyWith(color: color, fontWeight: FontWeight.w500, fontSize: 16.0);
-
-  TextStyle bold14({Color? color = AppColors.grayDark, double size = 14.0}) =>
-      Theme.of(context)
-          .textTheme
-          .bodyMedium!
-          .copyWith(color: color, fontWeight: FontWeight.w600, fontSize: size);
 
   TextStyle bold18({Color? color = Colors.black, double size = 18.0}) =>
       Theme.of(context)
@@ -62,6 +51,11 @@ class AppTextStyle {
           .copyWith(color: color, fontWeight: FontWeight.w700, fontSize: size);
 
   TextStyle semi14({Color color = AppColors.grayLight, double size = 14.0}) =>
+      Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(color: color, fontWeight: FontWeight.w500, fontSize: size);
+  TextStyle semi16({Color color = AppColors.grayLight, double size = 16.0}) =>
       Theme.of(context)
           .textTheme
           .bodyMedium!
@@ -77,13 +71,23 @@ class AppTextStyle {
             fontSize: size,
           );
 
-  TextStyle extra20({Color? color = Colors.white}) => Theme.of(context)
+  TextStyle extra24({Color? color = AppColors.blueDark}) => Theme.of(context)
+      .textTheme
+      .bodyMedium!
+      .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 24.0);
+
+  TextStyle extra20({Color? color = AppColors.blueDark}) => Theme.of(context)
       .textTheme
       .bodyMedium!
       .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 20.0);
 
-  TextStyle extra16({Color? color = Colors.white}) => Theme.of(context)
+  TextStyle extra16({Color? color = AppColors.blueDark}) => Theme.of(context)
       .textTheme
       .bodyMedium!
-      .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 16.sp);
+      .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 16.0);
+
+  TextStyle extra14({Color? color = AppColors.blueDark}) => Theme.of(context)
+      .textTheme
+      .bodyMedium!
+      .copyWith(color: color, fontWeight: FontWeight.bold, fontSize: 14.0);
 }

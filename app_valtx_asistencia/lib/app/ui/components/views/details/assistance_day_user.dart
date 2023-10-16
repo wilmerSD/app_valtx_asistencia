@@ -1,6 +1,7 @@
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +21,8 @@ class AssistanceDayUser extends StatelessWidget {
                     ? const Center(child: CircularProgressIndicator())
                     : controller.responseDataDia.isEmpty
                         ? Center(
-                            child: Text('${controller.statusMessageDay}'),
+                            child: Text('${controller.statusMessageDay}',
+                                style: AppTextStyle(context).medium14()),
                           )
                         : Row(
                             mainAxisSize: MainAxisSize.max,
@@ -55,12 +57,9 @@ class AssistanceDayUser extends StatelessWidget {
                                               width: 10.0,
                                             ),
                                             Text(
-                                              itemDay.time??'',
-                                              style: const TextStyle(
-                                                color: AppColors.grayLight,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                              ),
+                                              itemDay.time ?? '',
+                                              style: AppTextStyle(context)
+                                                  .semi16(),
                                             ),
                                           ],
                                         ),
@@ -76,12 +75,10 @@ class AssistanceDayUser extends StatelessWidget {
                                                 fontSize: 18,
                                               ),
                                             ),
-                                            const Text(
+                                            Text(
                                               'Sin observaciones',
-                                              style: TextStyle(
-                                                color: AppColors.grayLight,
-                                                fontSize: 14,
-                                              ),
+                                              style: AppTextStyle(context)
+                                                  .medium14(),
                                             ),
                                           ],
                                         )

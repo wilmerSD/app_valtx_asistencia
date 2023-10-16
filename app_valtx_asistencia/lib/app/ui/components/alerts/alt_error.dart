@@ -1,4 +1,5 @@
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class AltError extends StatelessWidget {
@@ -43,7 +44,7 @@ class AltError extends StatelessWidget {
                 content: Text(
                   textError,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18),
+                  style: AppTextStyle(context).textError(),
                 ),
                 actions: <Widget>[
                   TextButton(

@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,6 @@ class AltMarcarOk extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<HomeController>(
         builder: (controller) => Obx(() {
               final item = controller.responseUserAssistance;
@@ -41,7 +41,7 @@ class AltMarcarOk extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          registradoComo??'',
+                          registradoComo ?? '',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 20.0,
@@ -57,7 +57,7 @@ class AltMarcarOk extends StatelessWidget {
                               color: AppColors.degradedInitial,
                             ),
                             Text(
-                              ubicacion??'',
+                              ubicacion ?? '',
                               style: const TextStyle(
                                 fontSize: 14.0,
                                 color: AppColors.blueDark,
@@ -86,12 +86,9 @@ class AltMarcarOk extends StatelessWidget {
                                     spreadRadius: 0.0,
                                   ),
                                 ]),
-                            child: const Text(
+                            child: Text(
                               'Cerrar',
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: AppColors.backgroundColor,
-                                  decoration: TextDecoration.none),
+                              style: AppTextStyle(context).titleButton(),
                             ),
                           ),
                         ),

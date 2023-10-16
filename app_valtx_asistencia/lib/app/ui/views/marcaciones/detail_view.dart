@@ -6,6 +6,7 @@ import 'package:app_valtx_asistencia/app/ui/components/date_today.dart';
 import 'package:app_valtx_asistencia/app/ui/components/views/details/types_validations.dart';
 import 'package:app_valtx_asistencia/app/ui/views/marcaciones/detail_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,11 +23,8 @@ class DetailView extends StatelessWidget {
                 elevation: 0.18,
                 shadowColor: AppColors.grayLight,
                 backgroundColor: AppColors.backgroundColor,
-                title: const Text('Mis marcaciones',
-                    style: TextStyle(
-                        color: AppColors.blueDark,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold)),
+                title: Text('Mis marcaciones',
+                    style: AppTextStyle(context).extra24()),
               ),
               body: Stack(children: [
                 const Column(

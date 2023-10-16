@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,6 @@ class AltMarcarBad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<HomeController>(
         builder: (controller) => Obx(() {
               return Center(
@@ -40,11 +40,7 @@ class AltMarcarBad extends StatelessWidget {
                         Text(
                           controller.statusMessageUserAssistance.value,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: AppColors.blueDark,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: AppTextStyle(context).extra20(),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -66,12 +62,9 @@ class AltMarcarBad extends StatelessWidget {
                                     spreadRadius: 0.0,
                                   ),
                                 ]),
-                            child: const Text(
+                            child: Text(
                               'Cerrar',
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: AppColors.backgroundColor,
-                                  decoration: TextDecoration.none),
+                              style: AppTextStyle(context).titleButton(),
                             ),
                           ),
                         ),

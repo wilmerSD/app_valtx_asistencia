@@ -1,6 +1,7 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -45,16 +46,13 @@ class AppBarHome extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const Text(
+                          Text(
                             'Valtx',
-                            style: TextStyle(
-                                color: AppColors.blueDark,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                          ), 
+                            style: AppTextStyle(context).extra20(),
+                          ),
                           Text(
                             helpers.getDateLarge(),
-                            style:const TextStyle(color: AppColors.grayLight),
+                            style: AppTextStyle(context).medium14(),
                           ),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.04,

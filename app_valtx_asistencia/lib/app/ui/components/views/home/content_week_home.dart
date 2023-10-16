@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/helpers/helpers.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,19 +28,13 @@ class ContentWeekHome extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const Text(
+                      Text(
                         'Mis marcaciones recientes',
-                        style: TextStyle(
-                            color: Color.fromRGBO(38, 52, 113, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                        style: AppTextStyle(context).extra14(),
                       ),
                       Text(
                         helpers.getWeekCurrent(),
-                        style: const TextStyle(
-                            color: Color.fromRGBO(38, 52, 113, 1),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+                        style: AppTextStyle(context).extra14(),
                       ),
                     ],
                   ),
@@ -60,7 +55,8 @@ class ContentWeekHome extends StatelessWidget {
                         ? const Center(child: CircularProgressIndicator())
                         : controller.responseUserAssistanceWeek.isEmpty
                             ? Center(
-                                child: Text('${controller.statusMessageWeek}'),
+                                child: Text('${controller.statusMessageWeek}',
+                                    style: AppTextStyle(context).medium14()),
                               )
                             : ListView.separated(
                                 scrollDirection: Axis.horizontal,
@@ -72,8 +68,8 @@ class ContentWeekHome extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final item = controller
                                       .responseUserAssistanceWeek[index];
-                                  Color circleColor =
-                                      helpers.getCircleColor(item.idValidation ?? 0);
+                                  Color circleColor = helpers
+                                      .getCircleColor(item.idValidation ?? 0);
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -88,8 +84,7 @@ class ContentWeekHome extends StatelessWidget {
                                       const SizedBox(height: 5),
                                       Text(
                                         item.day ?? '',
-                                        style: const TextStyle(
-                                            fontSize: 14.0, color: Colors.grey),
+                                        style: AppTextStyle(context).medium14(),
                                       ),
                                     ],
                                   );

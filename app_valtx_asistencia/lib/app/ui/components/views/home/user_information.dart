@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -28,11 +29,13 @@ class UserInformation extends StatelessWidget {
                       leading: const CircleAvatar(
                         backgroundColor: AppColors.blueDark,
                         radius: 25,
-                        child:
-                            Icon(Icons.person, color: AppColors.backgroundColor, size: 30),
+                        child: Icon(Icons.person,
+                            color: AppColors.backgroundColor, size: 30),
                       ),
                       title: Text(
-                          "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}"),
+                        "${controller.responseUserInformation.value.names} ${controller.responseUserInformation.value.lastNames}",
+                        style: AppTextStyle(context).bold16(),
+                      ),
                       subtitle: Row(
                         children: [
                           const Icon(

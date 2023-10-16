@@ -20,7 +20,7 @@ class CustomInputField extends StatefulWidget {
   @override
   _CustomInputFieldState createState() => _CustomInputFieldState();
 }
-    
+
 class _CustomInputFieldState extends State<CustomInputField> {
   late bool _obscureText;
 
@@ -54,17 +54,14 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 }
               },
               decoration: InputDecoration(
-                labelStyle:
-                    const TextStyle(color: AppColors.grayLight),
+                labelStyle: const TextStyle(color: AppColors.grayLight),
                 labelText: widget.label,
                 enabledBorder: const OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: AppColors.grayLight),
+                  borderSide: BorderSide(color: AppColors.grayLight),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
                 focusedBorder: const OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: AppColors.grayDark),
+                  borderSide: BorderSide(color: AppColors.grayDark),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
                 suffixIcon: widget.isPassword
@@ -83,7 +80,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             if (state.hasError)
               Text(
                 state.errorText!,
-                style:const TextStyle(color: AppColors.red),
+                style: const TextStyle(color: AppColors.red),
               )
           ],
         );

@@ -1,5 +1,6 @@
 import 'package:app_valtx_asistencia/app/ui/views/home/home_controller.dart';
 import 'package:app_valtx_asistencia/core/theme/app_colors.dart';
+import 'package:app_valtx_asistencia/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,21 +52,12 @@ class BottomHome extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            '${itemMonth.quantity}',
-                                            style: const TextStyle(
-                                              color: AppColors.blueDark,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            itemMonth.description!,
-                                            style: const TextStyle(
-                                              color: AppColors.grayLight,
-                                              fontSize: 14,
-                                            ),
-                                          ),
+                                          Text('${itemMonth.quantity}',
+                                              style: AppTextStyle(context)
+                                                  .extra20()),
+                                          Text(itemMonth.description!,
+                                              style: AppTextStyle(context)
+                                                  .medium14()),
                                         ],
                                       );
                                     },
