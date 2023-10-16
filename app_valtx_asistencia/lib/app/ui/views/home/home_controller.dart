@@ -197,6 +197,7 @@ class HomeController extends GetxController {
       isLoading.value = false;
       statusAssistance.value = response.success;
       statusMessageUserAssistance.value = response.statusMessage;
+      responseUserAssistance.value= response.data;
       if (!response.success) {
         print("error: ${response.statusMessage}");
         return;
