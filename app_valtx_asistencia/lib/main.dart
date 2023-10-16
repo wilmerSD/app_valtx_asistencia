@@ -25,8 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('es', null);
-    return GetMaterialApp(
-      title: 'Marcaciones',
+    return ScreenUtilInit(
+      designSize: ScreenUtil.defaultSize,
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => GetMaterialApp(
+      title: 'Registro de asistencia',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blueDark),
         useMaterial3: true,
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutesName.SPLASH,
       getPages: AppRoutes.routes,
-    );
+    ));
   }
 }
 

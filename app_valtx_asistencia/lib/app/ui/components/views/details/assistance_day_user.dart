@@ -55,7 +55,7 @@ class AssistanceDayUser extends StatelessWidget {
                                               width: 10.0,
                                             ),
                                             Text(
-                                              itemDay.time!,
+                                              itemDay.time??'',
                                               style: const TextStyle(
                                                 color: AppColors.grayLight,
                                                 fontWeight: FontWeight.bold,

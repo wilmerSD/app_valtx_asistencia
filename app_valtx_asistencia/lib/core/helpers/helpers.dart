@@ -410,20 +410,9 @@ class Helpers {
           builder: (BuildContext context) {
             return Obx(() => controller.isLoading.value
                 ? const Center(child: CircularProgressIndicator())
-                : controller.isVisible.value
-                    ? AltError(
-                        textError: controller.messageError.value,
-                        isVisible: controller.isVisible.value,
-                        isLoading: false,
-                        OnTap: () {
-                          controller.messageError.value = "";
-                          controller.isVisible.value = false;
-                        })
                     : controller.statusAssistance.value
-                        ? Visibility(
-                          visible: controller.isVisible.value,
-                          child: const AltMarcarBad())
-                        : Visibility(visible: controller.isVisible.value,child: const AltMarcarOk()));
+                        ?const AltMarcarOk()
+                        :const AltMarcarBad() );
           },
         );
       }
