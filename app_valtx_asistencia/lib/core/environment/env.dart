@@ -11,7 +11,7 @@ extension Environment on ENV {
       case ENV.DESA:
         return {
           "enviroment": "DESAROLLO",
-          "baseUrl": "https://marcaciones-proyecto-ncd0.onrender.com",
+          "baseUrl": "http://ec2-18-216-242-158.us-east-2.compute.amazonaws.com",
           "connectTimeout": 600000,
           "receiveTimeout": 600000,
           "sendTimeout": 600000,
@@ -19,14 +19,14 @@ extension Environment on ENV {
       case ENV.QA:
         return {
           "enviroment": "QA",
-          "baseUrl": "https://qa-asistencias-c8aj.onrender.com",
+          "baseUrl": "http://ec2-18-216-242-158.us-east-2.compute.amazonaws.com",
           "connectTimeout": 600000,
           "receiveTimeout": 600000,
         };
       case ENV.PROD:
         return {
           "enviroment": "PRODUCCIÓN",
-          "baseUrl": "https://valtx.asistencia.com",
+          "baseUrl": "http://ec2-18-216-242-158.us-east-2.compute.amazonaws.com",
           "connectTimeout": 600000,
           "receiveTimeout": 600000,
         };

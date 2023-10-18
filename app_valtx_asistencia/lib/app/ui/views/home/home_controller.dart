@@ -178,7 +178,7 @@ class HomeController extends GetxController {
       isLoading.value = false;
       isVisible.value = true;
       messageError.value =
-          'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
+          'Ha ocurrido un error, por favor inténtelo de nuevo más tarde';
     }
   }
 
@@ -208,7 +208,7 @@ class HomeController extends GetxController {
       isLoading.value = false;
       isVisible.value = true;
       messageError.value =
-          'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
+          'Ha ocurrido un error, por favor inténtelo de nuevo más tarde';
     }
   }
 

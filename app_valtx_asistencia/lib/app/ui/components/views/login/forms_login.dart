@@ -27,14 +27,14 @@ class FormsLogin extends StatelessWidget {
           height: 20.0,
         ),
         CustomInputField(
-          label: "Nro. documento",
+          label: "Usuario",
           inputType: TextInputType.emailAddress,
-          validator: (text) {
+          /* validator: (text) {
             if (isValidEmail(text!)) {
               return null;
             }
             return "Email inválido";
-          },
+          }, */
           onChanged:
               onChangedUserName,
         ),
@@ -44,12 +44,12 @@ class FormsLogin extends StatelessWidget {
         CustomInputField(
           label: "Contraseña",
           isPassword: true,
-          validator: (text) {
+          /* validator: (text) {
             if (text!.trim().length >= 6) {
               return null;
             }
             return "Constraseña inválida";
-          },
+          }, */
           onChanged:
               onChangedPassword,
         ),

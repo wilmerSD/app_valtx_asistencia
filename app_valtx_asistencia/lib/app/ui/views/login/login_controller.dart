@@ -65,7 +65,7 @@ class LoginController extends GetxController {
         messageError.value = 'ERROR: ${error.response?.data['message']}';
       } else {
         messageError.value =
-            'Ha ocurrido un error, por favor inténtelo de nuevo mas tarde';
+            'Ha ocurrido un error, por favor inténtelo de nuevo más tarde.';
       }
     }
   }
